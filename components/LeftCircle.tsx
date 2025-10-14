@@ -67,21 +67,44 @@ export default function LeftArcDecoration() {
     return { radius, visibleWidth }
   }, [oheight, mouseX, mouseY])
 
-  const [waveWidths, setWaveWidths] = useState<number[]>(Array(9).fill(0))
+  const [waveWidths, setWaveWidths] = useState<number[]>(offsetsR.map((r) => radius + r))
+  const [waveHeights, setWaveHeights] = useState<number[]>(offsetsH.map((h) => radius + h))
+  const [waveX, setWaveX] = useState<number[]>(offsetsR.map((r) => -radius + visibleWidth + r))
+  const [waveY, setWaveY] = useState<number[]>(offsetsH.map((h) => (radius + 50) / 100))
 
+  // 初始化波纹宽度
+  useEffect(() => {
+    if (radius === 0) return
+    const newWidths = offsetsR.map((r, i) => radius + r)
+    setWaveWidths(newWidths)
+    const newH = offsetsH.map((h, i) => h + radius)
+    setWaveHeights(newH)
+    const newX = offsetsX.map((x, i) => -radius + visibleWidth + x + (i + 1) * 0.03)
+    setWaveX(newX)
+    const newY = offsetsY.map((y, i) => y + 50 + (i + 1) * 0.03)
+    setWaveY(newY)
+  }, [radius, offsetsR])
+
+  // 鼠标移动时更新波纹宽度
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       console.log('handleMouseMove')
       if (radius === 0) return // 等 radius 有值
       console.log('radius', radius)
-      const newWidths = offsetsR.map((r, i) => radius + r + mouseX.get() * (i + 1) * 0.03)
-      console.log('mouseX', mouseX.get())
-      console.log('newWidths', newWidths)
+      const newX = offsetsX.map(
+        (x, i) => -radius + visibleWidth + waveFactorX.get() * (i + 1) * 0.03
+      )
+      setWaveX(newX)
+      const newY = offsetsY.map((y, i) => y + 50 + waveFactorY.get() * (i + 1) * 0.03)
+      setWaveY(newY)
+      const newWidths = offsetsR.map((r, i) => radius + r + waveFactorR.get() * (i + 1) * 0.03)
       setWaveWidths(newWidths)
+      const newH = offsetsH.map((h, i) => h + radius + waveFactorH.get() * (i + 1) * 0.03)
+      setWaveHeights(newH)
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [radius, offsetsR, waveFactorR, mouseX])
+  }, [radius, offsetsR, waveFactorR, mouseX, mouseY])
 
   if (!mounted || oheight === 0 || owidth === 0) {
     return null
@@ -100,7 +123,7 @@ export default function LeftArcDecoration() {
         style={{
           width: `${radius}px`,
           height: `${radius}px`,
-          left: `-${radius - visibleWidth}px`, // 只露出 visibleWidth
+          left: `-${radius - visibleWidth + 10}px`, // 只露出 visibleWidth
           top: '50%',
           transform: 'translateY(-50%)',
         }}
@@ -114,9 +137,9 @@ export default function LeftArcDecoration() {
             key={i}
             style={{
               width: waveWidths[i - 1],
-              height: `${radius + +offsetsH[i - 1]}px`,
-              left: `-${radius - visibleWidth + offsetsX[i - 1]}px`,
-              top: `${50 + offsetsY[i - 1]}%`,
+              height: waveHeights[i - 1],
+              left: `${waveX[i - 1]}px`,
+              top: `${waveY[i - 1]}%`,
               transform: 'translateY(-50%)',
               opacity: 1 - i * 0.1,
             }}
