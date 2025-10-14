@@ -9,11 +9,8 @@ import siteMetadata from '@/data/siteMetadata'
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const hideLayout = ['/login', '/signup', '/blank', '/']
+  const hideLayout = ['/login', '/signup', '/blank', '/', '/documents']
   const noLayout = hideLayout.includes(pathname)
-
-  console.log('Current pathname:', pathname)
-  console.log('No layout applied:', noLayout)
   if (noLayout) {
     return <>{children}</>
   }

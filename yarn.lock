@@ -1232,6 +1232,18 @@
   dependencies:
     tslib "^2.4.0"
 
+"@emotion/is-prop-valid@*", "@emotion/is-prop-valid@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-1.4.0.tgz"
+  integrity sha512-QgD4fyscGcbbKwJmqNvUMSE02OsHUa+lAWKdEUIJKgqe5IwRSKd7+KhibEWdaKwgjLj0DRSHA9biAIqGBk05lw==
+  dependencies:
+    "@emotion/memoize" "^0.9.0"
+
+"@emotion/memoize@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.9.0.tgz"
+  integrity sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==
+
 "@esbuild-plugins/node-resolve@^0.2.2":
   version "0.2.2"
   resolved "https://registry.npmjs.org/@esbuild-plugins/node-resolve/-/node-resolve-0.2.2.tgz"
