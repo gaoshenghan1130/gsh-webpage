@@ -7,7 +7,7 @@ export default function HomeButton() {
 
   return (
     <button
-      className="fixed top-1/2 left-0 z-[9999] flex h-40 w-16 cursor-pointer items-center justify-center bg-transparent"
+      className="fixed top-1/2 left-[-1vw] z-[9999] flex h-40 w-16 cursor-pointer items-center justify-center bg-transparent"
       style={{
         height: '100vh',
         transform: 'translateY(-50%)',
@@ -20,10 +20,10 @@ export default function HomeButton() {
       }}
     >
       <span
-        className="text-4xl font-bold text-white opacity-30 transition-all duration-300"
+        className="text-2xl font-bold text-white opacity-20 transition-all duration-300"
         style={{
           textShadow: 'none',
-          letterSpacing: '0.3em',
+          letterSpacing: '2em',
         }}
       >
         HOME
