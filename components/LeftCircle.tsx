@@ -2,8 +2,10 @@
 
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { useEffect, useState, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function LeftArcDecoration() {
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const [oheight, setHeight] = useState(0)
   const [owidth, setWidth] = useState(0)
@@ -104,7 +106,8 @@ export default function LeftArcDecoration() {
 
   return (
     <div
-      className="fixed top-0 left-0 h-screen w-screen"
+      className="fixed top-0 left-0 z-1000 h-screen w-screen"
+      style={{ background: 'transparent' }}
       onMouseMove={(e) => {
         mouseX.set(e.clientX)
         mouseY.set(e.clientY)
@@ -113,13 +116,13 @@ export default function LeftArcDecoration() {
       {/* 主弓形 */}
       <motion.div
         style={{
-          width: `${radius}px`,
-          height: `${radius}px`,
+          width: `${radius * 1.05}px`,
+          height: `${radius * 1.05}px`,
           left: `-${radius - visibleWidth + 10}px`,
           top: '50%',
           transform: 'translateY(-50%)',
         }}
-        className="absolute rounded-full bg-gradient-to-b from-indigo-400 to-blue-500 opacity-90 shadow-2xl"
+        className="absolute rounded-full bg-[linear-gradient(180deg,#22ffff,#3b82f6,#c084fc)] opacity-40 blur-3xl"
       />
 
       {/* 动态波纹层 */}
