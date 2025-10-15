@@ -122,8 +122,16 @@ export default function LeftArcDecoration() {
           top: '50%',
           transform: 'translateY(-50%)',
         }}
-        className="absolute rounded-full bg-[linear-gradient(180deg,#22ffff,#3b82f6,#c084fc)] opacity-40 blur-3xl"
-      />
+        className="pointer-events-auto absolute z-50 flex cursor-pointer items-center justify-center rounded-full bg-[linear-gradient(180deg,#22ffff,#3b82f6,#c084fc)] opacity-40 blur-3xl"
+        onClick={() => router.push('/')}
+      >
+        <span
+          className="text-lg font-bold tracking-widest text-white select-none"
+          style={{ writingMode: 'vertical-rl' }}
+        >
+          HOME
+        </span>
+      </motion.div>
 
       {/* 动态波纹层 */}
       {Array.from({ length: layerCount }, (_, i) => (

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import LeftCircle from '@/components/LeftCircle'
+import HomeButton from '@/components/HomeButton'
 
 const entries = [
   'Robotics',
@@ -36,6 +37,7 @@ export default function DocumentPage() {
         background: 'linear-gradient(90deg, #050816 0%, #0a0c1d 40%, #1a103d 100%)',
       }}
     >
+      <HomeButton />
       {/* 背景光晕 */}
       <div className="absolute inset-0 top-0 right-0 h-full w-[30vw] bg-[radial-gradient(circle_at_30%_50%,rgba(139,92,246,0.25),transparent_60%)]" />
       <div className="absolute inset-0 top-0 right-0 h-full w-[30vw] bg-[radial-gradient(circle_at_70%_60%,rgba(6,182,212,0.15),transparent_60%)]" />
