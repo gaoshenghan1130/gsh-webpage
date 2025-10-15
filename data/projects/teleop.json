@@ -4,5 +4,6 @@
   "link": "https://github.com/gaoshenghan1130",
   "intro": "A teleoperation system for remote control of robots using ROS and custom hardware interfaces.",
   "tags": ["ROS", "Robotics", "C++"],
+  "image": "/static/images/ocean.jpeg",
   "desc": "Teleop is a robust teleoperation system designed for remote control of robotic platforms. Built on the Robot Operating System (ROS), it provides a flexible framework for integrating various hardware interfaces, including joysticks, game controllers, and custom-built devices. The system supports real-time command transmission, feedback mechanisms, and safety features to ensure reliable operation in diverse environments. Key functionalities include velocity control, pose estimation, and obstacle avoidance. Teleop is ideal for applications in research, industrial automation, and remote exploration."
 }

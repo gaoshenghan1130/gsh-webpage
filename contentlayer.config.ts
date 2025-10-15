@@ -140,6 +140,20 @@ export const Doc = defineDocumentType(() => ({
   computedFields,
 }))
 
+export const projJSON = defineDocumentType(() => ({
+  name: 'JSON',
+  filePathPattern: 'projects/*.json',
+  fields: {
+    name: { type: 'string', required: true },
+    file: { type: 'string', required: true },
+    intro: { type: 'string', required: true },
+    desc: { type: 'string', required: true },
+    link: { type: 'string', required: true },
+    image: { type: 'string', required: true },
+    tags: { type: 'list', of: { type: 'string' }, default: [] },
+  },
+}))
+
 export const Authors = defineDocumentType(() => ({
   name: 'Authors',
   filePathPattern: 'authors/**/*.mdx',
@@ -161,7 +175,7 @@ export const Authors = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors, Doc],
+  documentTypes: [Blog, Authors, Doc, projJSON],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [

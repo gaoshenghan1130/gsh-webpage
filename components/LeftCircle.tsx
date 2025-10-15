@@ -61,7 +61,7 @@ export default function LeftArcDecoration() {
     const radius = height / (2 * Math.sin(rad / 2))
     const visibleWidth = radius * (1 - Math.cos(rad / 2))
     return { radius, visibleWidth }
-  }, [oheight, mouseX, mouseY])
+  }, [oheight])
 
   const [waveWidths, setWaveWidths] = useState<number[]>(offsetsR.map((r) => radius + r))
   const [waveHeights, setWaveHeights] = useState<number[]>(offsetsH.map((h) => radius + h))
@@ -79,7 +79,7 @@ export default function LeftArcDecoration() {
     setWaveX(newX)
     const newY = offsetsY.map((y, i) => 50 + y * 0.2)
     setWaveY(newY)
-  }, [radius, offsetsR])
+  }, [radius, offsetsR, offsetsH, offsetsX, offsetsY, visibleWidth])
 
   // 鼠标移动时更新波纹
   useEffect(() => {
@@ -98,7 +98,20 @@ export default function LeftArcDecoration() {
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [radius, offsetsR, waveFactorR, mouseX, mouseY])
+  }, [
+    radius,
+    offsetsR,
+    waveFactorR,
+    mouseX,
+    mouseY,
+    offsetsH,
+    waveFactorH,
+    offsetsX,
+    waveFactorX,
+    offsetsY,
+    waveFactorY,
+    visibleWidth,
+  ])
 
   if (!mounted || oheight === 0 || owidth === 0) {
     return null

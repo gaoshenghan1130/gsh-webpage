@@ -10,6 +10,7 @@ import { useMDXComponent } from 'pliny/mdx-components'
 import pointSys from '@/data/projects/pointSys.json'
 import teleop from '@/data/projects/teleop.json'
 import udpServer from '@/data/projects/udpServer.json'
+import Image from 'next/image'
 
 const entries = [
   'Robotics',
@@ -206,6 +207,11 @@ export default function DocumentPage() {
                 className="rounded-lg border border-gray-700 bg-[#0f0f1a] p-4 text-[#e0e7ff] shadow-md transition-colors duration-300 hover:bg-[#1a1a2d]"
               >
                 <h3 className="text-lg font-semibold text-[#f8f9fa]">{p.name}</h3>
+                {p.image && (
+                  <div className="relative my-2 h-40 w-full">
+                    <Image src={p.image} alt={p.name} fill className="rounded-md object-cover" />
+                  </div>
+                )}
                 <p className="text-sm opacity-80">{p.desc}</p>
               </motion.a>
             ))}
