@@ -1,0 +1,6 @@
+{
+  "name": "Teleop",
+  "file": "Teleop.md",
+  "intro": "A teleoperation system for remote control of robots using ROS and custom hardware interfaces.",
+  "tags": ["ROS", "Robotics", "C++"]
+}

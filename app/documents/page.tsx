@@ -4,6 +4,12 @@ import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import LeftCircle from '@/components/LeftCircle'
 import HomeButton from '@/components/HomeButton'
+import dynamic from 'next/dynamic'
+import { allDocs } from 'contentlayer/generated'
+import { useMDXComponent } from 'pliny/mdx-components'
+import pointSys from '@/data/projects/pointSys.json'
+import teleop from '@/data/projects/teleop.json'
+import udpServer from '@/data/projects/udpServer.json'
 
 const entries = [
   'Robotics',
@@ -19,6 +25,48 @@ export default function DocumentPage() {
   const [boxPos, setBoxPos] = useState({ top: 0, height: 0 })
 
   const itemRefs = useRef<HTMLLIElement[]>([])
+
+  const contentMap = [
+    {
+      title: 'Robotics',
+      file: 'data/doc/Robotics/Robotics.mdx',
+      intro: `Focused on autonomous robot control and software architecture for RoboCup SSL and MRoboSub. 
+    Designed modular systems, finite state machines, and communication protocols to optimize robot behavior.`,
+      projects: [pointSys, teleop, udpServer],
+    },
+    {
+      title: 'Software',
+      file: 'data/doc/Software/Software.mdx',
+      intro: `Experience in software design, architecture, and system integration. Focused on maintainable, modular, 
+    and testable systems with CI/CD and CMake.`,
+      projects: [pointSys, teleop],
+    },
+    {
+      title: 'Embedded',
+      file: 'data/doc/Embedded/Embeded.mdx',
+      intro: `Development on STM32, real-time control, and communication systems. Focus on microcontroller applications 
+    for unicycles and robotics subsystems.`,
+      projects: [pointSys],
+    },
+    {
+      title: 'Web',
+      file: 'data/doc/Web/Web.mdx',
+      intro: `Building full-stack web applications with focus on backend performance, security, and clean API design.`,
+      projects: [pointSys],
+    },
+    {
+      title: 'Game',
+      file: 'data/doc/Game/Game.mdx',
+      intro: `Designed interactive games featuring unique mechanics and efficient OOP-based engines.`,
+      projects: [pointSys, teleop],
+    },
+  ]
+
+  //const comp = dynamic(() => import(`@/data/doc/Robotics/Robotics.mdx`))
+  const doc = allDocs.find((d) => d.title === contentMap[selected].title)
+  const code = doc?.body?.code ?? ''
+
+  const MDXContent = useMDXComponent(code)
 
   // 更新背景框位置
   useEffect(() => {
@@ -134,16 +182,34 @@ export default function DocumentPage() {
           >
             {entries[selected]}
           </h2>
-          <p
+          <div
             style={{
               fontSize: '1.2vw',
               lineHeight: '1.8vw',
               opacity: 0.9,
               maxWidth: '50vw',
+              marginBottom: '2vh',
             }}
           >
-            这里是 {entries[selected]} 的详细内容区域。你可以展示代码、图片、或其他交互组件。
-          </p>
+            {doc ? <MDXContent /> : <p>{contentMap[selected].intro}</p>}
+          </div>
+
+          {/* 项目卡片 */}
+          <div className="flex flex-col gap-4">
+            {contentMap[selected].projects.map((p, i) => (
+              <motion.a
+                key={i}
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                className="rounded-lg border border-gray-700 bg-[#0f0f1a] p-4 text-[#e0e7ff] shadow-md transition-colors duration-300 hover:bg-[#1a1a2d]"
+              >
+                <h3 className="text-lg font-semibold text-[#f8f9fa]">{p.name}</h3>
+                <p className="text-sm opacity-80">{p.desc}</p>
+              </motion.a>
+            ))}
+          </div>
         </motion.div>
       </div>
     </div>

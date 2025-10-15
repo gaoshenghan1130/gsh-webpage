@@ -1,0 +1,6 @@
+{
+  "name": "udpServer",
+  "file": "UDPServer.md",
+  "intro": "A high-performance UDP server implemented in C++ using Boost.Asio, designed for low-latency applications.",
+  "tags": ["C++", "Boost.Asio", "Networking"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "PointSys",
+  "file": "PointSys.md",
+  "intro": "A modular point cloud processing system in C++ with PCL, supporting filtering, segmentation, and visualization.",
+  "tags": ["C++", "PCL", "Point Cloud"]
+}
