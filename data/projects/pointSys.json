@@ -1,6 +1,8 @@
 {
   "name": "PointSys",
   "file": "PointSys.md",
+  "link": "https://github.com/gaoshenghan1130",
   "intro": "A modular point cloud processing system in C++ with PCL, supporting filtering, segmentation, and visualization.",
-  "tags": ["C++", "PCL", "Point Cloud"]
+  "tags": ["C++", "PCL", "Point Cloud"],
+  "desc": "PointSys is a comprehensive point cloud processing system developed in C++. It leverages the Point Cloud Library (PCL) to provide a suite of tools for filtering, segmenting, and visualizing 3D point cloud data. The system is designed with modularity in mind, allowing users to easily extend its functionality by adding new processing modules. Key features include noise reduction, outlier removal, plane segmentation, and 3D visualization capabilities. PointSys is ideal for applications in robotics, computer vision, and 3D mapping."
 }

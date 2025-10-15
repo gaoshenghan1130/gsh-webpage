@@ -1,6 +1,8 @@
 {
   "name": "udpServer",
   "file": "UDPServer.md",
+  "link": "https://github.com/gaoshenghan1130",
   "intro": "A high-performance UDP server implemented in C++ using Boost.Asio, designed for low-latency applications.",
-  "tags": ["C++", "Boost.Asio", "Networking"]
+  "tags": ["C++", "Boost.Asio", "Networking"],
+  "desc": "The UDPServer project is a high-performance UDP server developed in C++ utilizing the Boost.Asio library. It is designed to handle low-latency applications requiring efficient network communication. The server supports asynchronous I/O operations, allowing it to manage multiple client connections simultaneously without blocking. Key features include message broadcasting, client management, and error handling. The server is optimized for performance and scalability, making it suitable for applications such as real-time data streaming, online gaming, and IoT communications."
 }
