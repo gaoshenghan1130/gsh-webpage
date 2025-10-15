@@ -11,6 +11,7 @@ import pointSys from '@/data/projects/pointSys.json'
 import teleop from '@/data/projects/teleop.json'
 import udpServer from '@/data/projects/udpServer.json'
 import Image from 'next/image'
+import ScrollHeader from '@/components/ScrollHeader'
 
 const entries = [
   'Robotics',
@@ -78,6 +79,8 @@ export default function DocumentPage() {
       setBoxPos({ top: el.offsetTop, height: rect.height })
     }
   }, [hovered, selected])
+
+  const leftcontenthRef = useRef<HTMLDivElement>(null)
 
   return (
     <div
@@ -160,29 +163,30 @@ export default function DocumentPage() {
 
       {/* 右侧内容区 */}
       <div
-        className="flex flex-col justify-start p-[4vw]"
+        ref={leftcontenthRef}
+        className="flex flex-col justify-start overflow-y-auto p-[4vw]"
         style={{
           width: '70vw',
           color: '#E0E7FF',
+          height: '100vh',
         }}
       >
-        <motion.div
-          key={selected}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <h2
-            className="mb-[1.5vh] bg-clip-text font-bold text-transparent"
-            style={{
-              fontSize: '2.6vw',
-              color: '#fffbe8', // ✅ 改成暖白
-              textShadow: '2px 2px 6px rgba(255, 240, 180, 0.3)',
-              maxWidth: '70vw',
-            }}
-          >
-            {entries[selected]}
-          </h2>
+        <motion.div key={selected} transition={{ duration: 0.4 }}>
+          {/* 标题使用 ScrollHeader */}
+          <ScrollHeader containerRef={leftcontenthRef}>
+            <h2
+              className="mb-[1.5vh] bg-clip-text font-bold text-transparent"
+              style={{
+                fontSize: '2vw',
+                color: '#f7f8deff',
+                textShadow: '2px 2px 6px rgba(255, 240, 180, 0.3)',
+                maxWidth: '70vw',
+              }}
+            >
+              {entries[selected]}
+            </h2>
+          </ScrollHeader>
+
           <div
             style={{
               fontSize: '1.2vw',
