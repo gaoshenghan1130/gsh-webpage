@@ -31,16 +31,8 @@ export default function Main() {
           Explore my work or learn more about me
         </motion.p>
 
-        {/* 两个按钮 */}
+        {/* 按钮 */}
         <div className="mt-6 flex space-x-8">
-          <motion.a
-            href="/documents"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="rounded-2xl bg-cyan-600/80 px-8 py-4 font-semibold text-white shadow-lg backdrop-blur-md transition hover:bg-cyan-500"
-          >
-            View Projects / Documents
-          </motion.a>
           <motion.a
             href="/resume"
             whileHover={{ scale: 1.1 }}
