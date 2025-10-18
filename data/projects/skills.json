@@ -1,0 +1,14 @@
+[
+  {
+    "category": "Robotics & Embedded",
+    "skills": ["Robotics", "Embedded Systems"]
+  },
+  {
+    "category": "Software & Web",
+    "skills": ["Software Engineering", "Web Development", "Game Design"]
+  },
+  {
+    "category": "Security & AI",
+    "skills": ["Cybersecurity", "Machine Learning"]
+  }
+]

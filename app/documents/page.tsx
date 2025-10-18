@@ -102,10 +102,10 @@ export default function DocumentPage() {
           backgroundColor: '#020212', // 更深的黑
         }}
       >
-        {/* 半圆装饰 */}
+        {/* 半圆装饰
         <div className="absolute inset-0 opacity-40">
           <LeftCircle />
-        </div>
+        </div> */}
 
         {/* 条目列表 */}
         <ul
