@@ -1,11 +1,10 @@
-import { withContentlayer } from 'next-contentlayer2'
-import bundleAnalyzer from '@next/bundle-analyzer'
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { withContentlayer } = require('next-contentlayer2')
 
-const withBundleAnalyzer = bundleAnalyzer({
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-export { withContentlayer, withBundleAnalyzer }
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
