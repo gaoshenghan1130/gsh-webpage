@@ -1,47 +1,96 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Main() {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const [videoBright, setVideoBright] = useState(false)
+  const [hovering, setHovering] = useState(false)
+  const router = useRouter()
+
+  // 视频进度控制主标题亮度
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+
+    const onLoaded = () => {
+      if (v.duration && v.currentTime >= v.duration * 0.55) setVideoBright(true)
+    }
+
+    const onTimeUpdate = () => {
+      if (!v.duration) return
+      if (!videoBright && v.currentTime >= v.duration * 0.55) setVideoBright(true)
+    }
+
+    v.addEventListener('loadedmetadata', onLoaded)
+    v.addEventListener('timeupdate', onTimeUpdate)
+    return () => {
+      v.removeEventListener('loadedmetadata', onLoaded)
+      v.removeEventListener('timeupdate', onTimeUpdate)
+    }
+  }, [videoBright])
+
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-sky-950 via-slate-900 to-black text-white">
-      {/* 背景层：星空或动态粒子 */}
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d')] bg-cover bg-fixed bg-center opacity-60"></div>
+    <div className="relative h-screen w-full overflow-hidden text-white">
+      {/* 背景视频 + 可控制 blur */}
+      <motion.video
+        ref={videoRef}
+        autoPlay
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        animate={{ filter: hovering ? 'blur(3px)' : 'blur(0px)' }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
+        <source src="/dynamic/earth_night.mp4" type="video/mp4" />
+      </motion.video>
 
-      {/* 半透明遮罩层 */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-
-      {/* 主体内容 */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center space-y-12 text-center">
+      {/* 页面内容 */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+        {/* 主标题 */}
         <motion.h1
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-5xl font-bold tracking-wide"
+          transition={{ duration: 1, ease: 'easeOut' }}
+          className="text-center text-6xl leading-tight font-black tracking-tight md:text-8xl"
         >
-          Welcome to <span className="text-cyan-400">My Space</span>
+          {/* 现代厚重开头 */}
+          <span className="text-7xl text-white/70" style={{ fontFamily: "'Anton', sans-serif" }}>
+            Hi, I'm
+          </span>{' '}
+          {/* 优雅衬线名字 */}
+          <motion.span
+            animate={{ color: videoBright ? '#010b259c' : '#fcd34dc1' }}
+            transition={{ duration: 1 }}
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Gao Shenghan
+          </motion.span>
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="text-lg text-gray-300"
-        >
-          Explore my work or learn more about me
-        </motion.p>
-
         {/* 按钮 */}
-        <div className="mt-6 flex space-x-8">
-          <motion.a
-            href="/resume"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="rounded-2xl bg-purple-600/80 px-8 py-4 font-semibold text-white shadow-lg backdrop-blur-md transition hover:bg-purple-500"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+        >
+          <motion.button
+            whileHover={{
+              scale: 1.08,
+              boxShadow: '0 0 1px 2px rgba(255, 255, 255, 0.08)',
+            }}
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+            onClick={() => router.push('/resume')}
+            style={{ willChange: 'transform, box-shadow', transform: 'translateZ(0)' }}
+            className="mt-10 rounded-full px-[6vw] py-[1vh] text-2xl font-semibold text-white/60 shadow-lg backdrop-blur-sm transition hover:bg-white/10"
+            color="rgba(175, 184, 187, 0.32)"
           >
-            View Resume / About Me
-          </motion.a>
-        </div>
+            Learn More
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   )
