@@ -1,31 +1,39 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
 interface LeftFilterProps {
-  skillCategories: { category: string; skills: string[] }[]
-  selectedSkills: string[]
-  onChange: (skill: string) => void
+  skillCategories: { category: string; skills: string[] }[];
+  selectedSkills: string[];
+  onChange: (skill: string) => void;
 }
 
-export default function LeftFilter({ skillCategories, selectedSkills, onChange }: LeftFilterProps) {
-  const [openCategories, setOpenCategories] = useState<string[]>([])
+export default function LeftFilter({
+  skillCategories,
+  selectedSkills,
+  onChange,
+}: LeftFilterProps) {
+  const [openCategories, setOpenCategories] = useState<string[]>([]);
 
   const toggleCategory = (category: string) => {
     setOpenCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
-    )
-  }
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category],
+    );
+  };
 
   return (
     <div className="fixed top-[25.0%] left-0 flex h-[73.0%] w-1/4 flex-col overflow-y-auto rounded-r-3xl border border-gray-200/50 bg-white/60 px-6 py-4 shadow-md backdrop-blur-2xl transition-all duration-300">
-      <h3 className="mb-3 text-sm font-semibold tracking-wide text-gray-800 uppercase">Filter</h3>
+      <h3 className="mb-3 text-sm font-semibold tracking-wide text-gray-800 uppercase">
+        Filter
+      </h3>
 
       <div className="space-y-2">
         {skillCategories.map((group) => {
-          const isOpen = openCategories.includes(group.category)
+          const isOpen = openCategories.includes(group.category);
           return (
             <div key={group.category}>
               {/* 类别标题 */}
@@ -46,13 +54,13 @@ export default function LeftFilter({ skillCategories, selectedSkills, onChange }
                 {isOpen && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
                     className="mt-2 flex flex-col gap-1 overflow-hidden pl-3"
                   >
                     {group.skills.map((skill) => {
-                      const selected = selectedSkills.includes(skill)
+                      const selected = selectedSkills.includes(skill);
                       return (
                         <motion.button
                           key={skill}
@@ -60,21 +68,21 @@ export default function LeftFilter({ skillCategories, selectedSkills, onChange }
                           whileTap={{ scale: 0.97 }}
                           className={`rounded-md px-2 py-1 text-left text-sm transition-colors duration-150 ${
                             selected
-                              ? 'bg-blue-100 font-medium text-blue-600'
-                              : 'text-gray-600 hover:bg-gray-100'
+                              ? "bg-blue-100 font-medium text-blue-600"
+                              : "text-gray-600 hover:bg-gray-100"
                           }`}
                         >
                           {skill}
                         </motion.button>
-                      )
+                      );
                     })}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }

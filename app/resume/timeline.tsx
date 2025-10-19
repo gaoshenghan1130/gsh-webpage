@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { motion, vh } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { events } from './events'
+import { motion, vh } from "framer-motion";
+import { useRef, useState } from "react";
+import { events } from "./events";
 
 export default function Timeline() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const middleLineTop = '10vh' // 1/6，高度节点对齐
+  const middleLineTop = "10vh"; // 1/6，高度节点对齐
 
   return (
     <div
@@ -30,16 +30,21 @@ export default function Timeline() {
       <motion.div
         className="inline-flex space-x-24 px-20"
         animate={{
-          x: hoveredIndex === 0 ? 100 : hoveredIndex === events.length - 1 ? -100 : 0,
+          x:
+            hoveredIndex === 0
+              ? 100
+              : hoveredIndex === events.length - 1
+                ? -100
+                : 0,
         }}
-        transition={{ type: 'spring', stiffness: 150, damping: 20 }}
+        transition={{ type: "spring", stiffness: 150, damping: 20 }}
       >
         {events.map((event, index) => {
-          let offset = 0
+          let offset = 0;
           if (hoveredIndex !== null) {
-            const distance = Math.abs(index - hoveredIndex)
-            if (distance === 1) offset = index < hoveredIndex ? -60 : 60
-            if (distance === 2) offset = index < hoveredIndex ? -30 : 30
+            const distance = Math.abs(index - hoveredIndex);
+            if (distance === 1) offset = index < hoveredIndex ? -60 : 60;
+            if (distance === 2) offset = index < hoveredIndex ? -30 : 30;
           }
 
           return (
@@ -47,7 +52,7 @@ export default function Timeline() {
               key={index}
               className="group relative flex flex-col items-center"
               whileHover={{ scale: 1.15 }}
-              transition={{ type: 'spring', stiffness: 70, damping: 22 }}
+              transition={{ type: "spring", stiffness: 70, damping: 22 }}
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
               animate={{ x: offset }}
@@ -57,9 +62,9 @@ export default function Timeline() {
                 className="x-[-2px] relative z-10 h-4 w-4 rounded-full bg-gray-400 shadow-md group-hover:bg-blue-500"
                 whileHover={{
                   scale: 1.6,
-                  boxShadow: '0 0 12px rgba(40, 101, 198, 1)',
+                  boxShadow: "0 0 12px rgba(40, 101, 198, 1)",
                 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 style={{ top: `calc(${middleLineTop} - 8px)` }}
               />
 
@@ -68,7 +73,7 @@ export default function Timeline() {
                 className="mt-2 text-lg font-semibold text-gray-700"
                 whileHover={{ y: -3 }}
                 transition={{ duration: 0.2 }}
-                style={{ position: 'relative', top: middleLineTop }}
+                style={{ position: "relative", top: middleLineTop }}
               >
                 {event.year}
               </motion.div>
@@ -76,7 +81,7 @@ export default function Timeline() {
               {/* 简要描述 */}
               <div
                 className="mt-1 max-w-[150px] text-center text-sm text-gray-500 opacity-100 transition-opacity duration-200 group-hover:opacity-0"
-                style={{ position: 'relative', top: middleLineTop }}
+                style={{ position: "relative", top: middleLineTop }}
               >
                 {event.desc}
               </div>
@@ -85,7 +90,7 @@ export default function Timeline() {
               <motion.div
                 className="absolute z-10 mt-3 min-h-[8rem] w-60 rounded-xl border border-gray-200 bg-white/90 px-4 py-2 text-sm break-words whitespace-normal text-gray-800 opacity-0 shadow-xl backdrop-blur-md transition-opacity duration-300"
                 style={{
-                  pointerEvents: hoveredIndex === index ? 'auto' : 'none',
+                  pointerEvents: hoveredIndex === index ? "auto" : "none",
                   top: `calc(${middleLineTop} + 2rem)`,
                 }}
                 initial={{ opacity: 0, y: -20 }}
@@ -98,9 +103,9 @@ export default function Timeline() {
                 {event.detail}
               </motion.div>
             </motion.div>
-          )
+          );
         })}
       </motion.div>
     </div>
-  )
+  );
 }

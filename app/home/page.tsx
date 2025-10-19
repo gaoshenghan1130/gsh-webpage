@@ -1,5 +1,5 @@
-import Main from '../Main'
+import Main from "../Main";
 
 export default function HomePage() {
-  return <Main />
+  return <Main />;
 }

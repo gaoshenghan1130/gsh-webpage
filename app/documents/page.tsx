@@ -1,92 +1,93 @@
-'use client'
+"use client";
 
-import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import LeftCircle from '@/components/LeftCircle'
-import HomeButton from '@/components/HomeButton'
-import dynamic from 'next/dynamic'
-import { allDocs } from 'contentlayer/generated'
-import { useMDXComponent } from 'pliny/mdx-components'
-import pointSys from '@/data/projects/pointSys.json'
-import teleop from '@/data/projects/teleop.json'
-import udpServer from '@/data/projects/udpServer.json'
-import Image from 'next/image'
-import ScrollHeader from '@/components/ScrollHeader'
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import LeftCircle from "@/components/LeftCircle";
+import HomeButton from "@/components/HomeButton";
+import dynamic from "next/dynamic";
+import { allDocs } from "contentlayer/generated";
+import { useMDXComponent } from "pliny/mdx-components";
+import pointSys from "@/data/projects/pointSys.json";
+import teleop from "@/data/projects/teleop.json";
+import udpServer from "@/data/projects/udpServer.json";
+import Image from "next/image";
+import ScrollHeader from "@/components/ScrollHeader";
 
 const entries = [
-  'Robotics',
-  'Software Engineering',
-  'Embedded Systems',
-  'Web Development & Cybersecurity',
-  'Game Design & Software structures',
-]
+  "Robotics",
+  "Software Engineering",
+  "Embedded Systems",
+  "Web Development & Cybersecurity",
+  "Game Design & Software structures",
+];
 
 export default function DocumentPage() {
-  const [selected, setSelected] = useState(0)
-  const [hovered, setHovered] = useState<number | null>(null)
-  const [boxPos, setBoxPos] = useState({ top: 0, height: 0 })
+  const [selected, setSelected] = useState(0);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [boxPos, setBoxPos] = useState({ top: 0, height: 0 });
 
-  const itemRefs = useRef<HTMLLIElement[]>([])
+  const itemRefs = useRef<HTMLLIElement[]>([]);
 
   const contentMap = [
     {
-      title: 'Robotics',
-      file: 'data/doc/Robotics/Robotics.mdx',
+      title: "Robotics",
+      file: "data/doc/Robotics/Robotics.mdx",
       intro: `Focused on autonomous robot control and software architecture for RoboCup SSL and MRoboSub. 
     Designed modular systems, finite state machines, and communication protocols to optimize robot behavior.`,
       projects: [pointSys, teleop, udpServer],
     },
     {
-      title: 'Software',
-      file: 'data/doc/Software/Software.mdx',
+      title: "Software",
+      file: "data/doc/Software/Software.mdx",
       intro: `Experience in software design, architecture, and system integration. Focused on maintainable, modular, 
     and testable systems with CI/CD and CMake.`,
       projects: [pointSys, teleop],
     },
     {
-      title: 'Embedded',
-      file: 'data/doc/Embedded/Embeded.mdx',
+      title: "Embedded",
+      file: "data/doc/Embedded/Embeded.mdx",
       intro: `Development on STM32, real-time control, and communication systems. Focus on microcontroller applications 
     for unicycles and robotics subsystems.`,
       projects: [pointSys],
     },
     {
-      title: 'Web',
-      file: 'data/doc/Web/Web.mdx',
+      title: "Web",
+      file: "data/doc/Web/Web.mdx",
       intro: `Building full-stack web applications with focus on backend performance, security, and clean API design.`,
       projects: [pointSys],
     },
     {
-      title: 'Game',
-      file: 'data/doc/Game/Game.mdx',
+      title: "Game",
+      file: "data/doc/Game/Game.mdx",
       intro: `Designed interactive games featuring unique mechanics and efficient OOP-based engines.`,
       projects: [pointSys, teleop],
     },
-  ]
+  ];
 
   //const comp = dynamic(() => import(`@/data/doc/Robotics/Robotics.mdx`))
-  const doc = allDocs.find((d) => d.title === contentMap[selected].title)
-  const code = doc?.body?.code ?? ''
+  const doc = allDocs.find((d) => d.title === contentMap[selected].title);
+  const code = doc?.body?.code ?? "";
 
-  const MDXContent = useMDXComponent(code)
+  const MDXContent = useMDXComponent(code);
 
   // 更新背景框位置
   useEffect(() => {
-    const idx = hovered ?? selected
-    const el = itemRefs.current[idx]
+    const idx = hovered ?? selected;
+    const el = itemRefs.current[idx];
     if (el) {
-      const rect = el.getBoundingClientRect()
-      setBoxPos({ top: el.offsetTop, height: rect.height })
+      const rect = el.getBoundingClientRect();
+      setBoxPos({ top: el.offsetTop, height: rect.height });
     }
-  }, [hovered, selected])
+  }, [hovered, selected]);
 
-  const leftcontenthRef = useRef<HTMLDivElement>(null)
+  const leftcontenthRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       className="relative flex h-screen w-screen"
       style={{
-        background: 'linear-gradient(90deg, #050816 0%, #0a0c1d 40%, #1a103d 100%)',
+        background:
+          "linear-gradient(90deg, #050816 0%, #0a0c1d 40%, #1a103d 100%)",
       }}
     >
       <HomeButton />
@@ -98,8 +99,8 @@ export default function DocumentPage() {
       <div
         className="relative flex items-center justify-center overflow-hidden"
         style={{
-          width: '30vw',
-          backgroundColor: '#020212', // 更深的黑
+          width: "30vw",
+          backgroundColor: "#020212", // 更深的黑
         }}
       >
         {/* 半圆装饰
@@ -111,8 +112,8 @@ export default function DocumentPage() {
         <ul
           className="relative z-10 flex flex-col justify-around"
           style={{
-            height: '60vh',
-            paddingLeft: '7vw',
+            height: "60vh",
+            paddingLeft: "7vw",
           }}
         >
           {/* 背景滑动框 */}
@@ -120,33 +121,33 @@ export default function DocumentPage() {
             className="absolute left-0 w-full rounded-md"
             style={{
               top: boxPos.top,
-              left: '5vw',
+              left: "5vw",
               height: boxPos.height,
-              background: 'linear-gradient(90deg, #06b6d4, #8b5cf6)',
+              background: "linear-gradient(90deg, #06b6d4, #8b5cf6)",
               opacity: 0.25,
             }}
             layout
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
 
           {entries.map((entry, idx) => (
             <motion.li
               key={idx}
               ref={(el) => {
-                itemRefs.current[idx] = el!
+                itemRefs.current[idx] = el!;
               }}
               style={{
-                marginBottom: idx === entries.length - 1 ? 0 : '1.8vh',
-                paddingTop: '1.2vh',
-                paddingBottom: '1.2vh',
-                cursor: 'pointer',
-                fontSize: '1.6vw',
-                position: 'relative',
+                marginBottom: idx === entries.length - 1 ? 0 : "1.8vh",
+                paddingTop: "1.2vh",
+                paddingBottom: "1.2vh",
+                cursor: "pointer",
+                fontSize: "1.6vw",
+                position: "relative",
               }}
               className={`relative cursor-pointer font-medium transition-colors duration-300 ${
                 selected === idx
-                  ? 'text-[#fffbe8]' // 暖白
-                  : 'text-gray-300 hover:text-[#f4e3b2]' // hover 变成柔黄色
+                  ? "text-[#fffbe8]" // 暖白
+                  : "text-gray-300 hover:text-[#f4e3b2]" // hover 变成柔黄色
               }`}
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -166,9 +167,9 @@ export default function DocumentPage() {
         ref={leftcontenthRef}
         className="flex flex-col justify-start overflow-y-auto p-[4vw]"
         style={{
-          width: '70vw',
-          color: '#E0E7FF',
-          height: '100vh',
+          width: "70vw",
+          color: "#E0E7FF",
+          height: "100vh",
         }}
       >
         <motion.div key={selected} transition={{ duration: 0.4 }}>
@@ -177,10 +178,10 @@ export default function DocumentPage() {
             <h2
               className="mb-[1.5vh] bg-clip-text font-bold text-transparent"
               style={{
-                fontSize: '2vw',
-                color: '#f7f8deff',
-                textShadow: '2px 2px 6px rgba(255, 240, 180, 0.3)',
-                maxWidth: '70vw',
+                fontSize: "2vw",
+                color: "#f7f8deff",
+                textShadow: "2px 2px 6px rgba(255, 240, 180, 0.3)",
+                maxWidth: "70vw",
               }}
             >
               {entries[selected]}
@@ -189,11 +190,11 @@ export default function DocumentPage() {
 
           <div
             style={{
-              fontSize: '1.2vw',
-              lineHeight: '1.8vw',
+              fontSize: "1.2vw",
+              lineHeight: "1.8vw",
               opacity: 0.9,
-              maxWidth: '50vw',
-              marginBottom: '2vh',
+              maxWidth: "50vw",
+              marginBottom: "2vh",
             }}
           >
             {doc ? <MDXContent /> : <p>{contentMap[selected].intro}</p>}
@@ -210,10 +211,17 @@ export default function DocumentPage() {
                 whileHover={{ scale: 1.02 }}
                 className="rounded-lg border border-gray-700 bg-[#0f0f1a] p-4 text-[#e0e7ff] shadow-md transition-colors duration-300 hover:bg-[#1a1a2d]"
               >
-                <h3 className="text-lg font-semibold text-[#f8f9fa]">{p.name}</h3>
+                <h3 className="text-lg font-semibold text-[#f8f9fa]">
+                  {p.name}
+                </h3>
                 {p.image && (
                   <div className="relative my-2 h-40 w-full">
-                    <Image src={p.image} alt={p.name} fill className="rounded-md object-cover" />
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      className="rounded-md object-cover"
+                    />
                   </div>
                 )}
                 <p className="text-sm opacity-80">{p.desc}</p>
@@ -223,5 +231,5 @@ export default function DocumentPage() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
