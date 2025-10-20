@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "prism-themes/themes/prism-vsc-dark-plus.css";
 @plugin "@tailwindcss/forms";
 @plugin '@tailwindcss/typography';
 @source '../node_modules/pliny';
@@ -181,4 +182,20 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+/* 默认状态 */
+.prose a {
+  color: #2c77efe9; /* Tailwind的blue-500 */
+  text-decoration: none;
+}
+
+/* 悬停状态 */
+.prose a:hover {
+  color: #2563eb; /* blue-600 */
+  text-decoration: underline;
 }

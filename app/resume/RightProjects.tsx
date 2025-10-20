@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Project {
   name: string;
+  fullname: string;
   file: string;
   link: string;
   intro: string;
@@ -19,6 +21,7 @@ interface RightProjectsProps {
 }
 
 export default function RightProjects({ projects }: RightProjectsProps) {
+  const router = useRouter();
   return (
     <div className="fixed top-[20%] right-9 h-[75vh] max-h-[75vh] w-[70%] overflow-y-auto pr-6">
       <div className="relative top-[5vh] left-3 flex w-full flex-wrap overflow-visible">
@@ -31,11 +34,20 @@ export default function RightProjects({ projects }: RightProjectsProps) {
               key={project.name}
               whileHover={{ scale: 1.08, zIndex: 10000 }}
               transition={{ type: "spring", stiffness: 250, damping: 18 }}
-              className="group relative aspect-square w-[23%] cursor-pointer overflow-hidden rounded-2xl bg-white/50 shadow-md backdrop-blur-xl transition-all duration-300 hover:shadow-2xl"
+              className="group relative aspect-square w-[23%] cursor-pointer overflow-hidden rounded-2xl bg-white/50 shadow-md backdrop-blur-xl transition-all duration-300 hover:shadow-2xl focus:outline-none"
               style={{
                 zIndex: col * 100 + row,
                 marginLeft: col === 0 ? 0 : "-4%", // 横向交叠
                 marginTop: row === 0 ? 0 : "-4%", // 纵向交叠
+              }}
+              onClick={() => {
+                // 清除当前聚焦元素，防止蓝框残留
+                if (document.activeElement instanceof HTMLElement) {
+                  document.activeElement.blur();
+                }
+
+                // 执行导航
+                router.push(`/${project.file}`);
               }}
             >
               {/* 封面图 */}
@@ -48,8 +60,8 @@ export default function RightProjects({ projects }: RightProjectsProps) {
 
               {/* 顶部标题条 */}
               <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-black/40 to-transparent p-2">
-                <h4 className="text-sm font-semibold text-white drop-shadow-md">
-                  {project.name}
+                <h4 className="text-sm font-semibold text-white drop-shadow-md w-[70%]">
+                  {project.fullname}
                 </h4>
               </div>
 
@@ -61,7 +73,7 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                 className="absolute inset-0 flex flex-col justify-end bg-black/70 p-3 opacity-0 group-hover:opacity-100"
               >
                 <h4 className="mb-1 text-xs font-semibold text-white">
-                  {project.name}
+                  {project.fullname}
                 </h4>
                 <p className="mb-1 line-clamp-2 text-[11px] text-gray-200">
                   {project.intro}

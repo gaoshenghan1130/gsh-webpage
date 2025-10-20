@@ -1,24 +1,44 @@
-import { defineDocumentType, makeSource } from "@contentlayer/source-files";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
+// app/projects/[...slug]/page.tsx
+import { notFound } from "next/navigation";
+import { allJSONs, allProjects } from ".contentlayer/generated";
+import { coreContent } from "pliny/utils/contentlayer";
+import { MDXLayoutRenderer } from "pliny/mdx-components";
+import { components } from "@/components/MDXComponents";
+import ProjectLayout from "@/layouts/ProjectLayout";
 
-export const Project = defineDocumentType(() => ({
-  name: "Project",
-  filePathPattern: "projects/**/*.mdx",
-  contentType: "mdx",
-  fields: {
-    title: { type: "string", required: true },
-    date: { type: "date", required: true },
-    description: { type: "string", required: false },
-  },
-}));
+export const generateStaticParams = async () => {
+  const jsonSlugs = allJSONs.map((p) => p.name);
+  const mdxSlugs = allProjects.map((p) => p.slug);
+  const allSlugs = [...jsonSlugs, ...mdxSlugs];
+  return allSlugs.map((slug) => ({ slug: [slug] }));
+};
 
-export default makeSource({
-  contentDirPath: "projects",
-  documentTypes: [Project],
-  mdx: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-  },
-});
+export default async function Page(props: {
+  params: Promise<{ slug: string[] }>;
+}) {
+  const { slug } = await props.params; // 解包 Promise
+  const decodedSlug = decodeURI(slug.join("/"));
+
+  const projectMDX = allProjects.find((p) => p.slug === decodedSlug);
+
+  if (!projectMDX) return notFound();
+
+  const content = coreContent(projectMDX);
+
+  return (
+    <ProjectLayout
+      title={projectMDX.name}
+      intro={projectMDX.intro}
+      desc={projectMDX.desc}
+      link={projectMDX.link}
+      image={projectMDX.image}
+      tags={projectMDX.tags}
+    >
+      <MDXLayoutRenderer
+        code={projectMDX.body.code}
+        components={components}
+        toc={projectMDX.toc}
+      />
+    </ProjectLayout>
+  );
+}

@@ -23,7 +23,7 @@ export default function ScrollHeader({
 
     if (delta > 1)
       setShow(false); // 向下滚动隐藏
-    else if (delta < 0) setShow(true); // 向上滚动显示
+    else if (delta < 1) setShow(true); // 向上滚动显示
 
     lastScrollY.current = currentScrollY;
   };
@@ -50,12 +50,11 @@ export default function ScrollHeader({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -70, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed top-4 right-4 left-[30vw] z-50 p-4 shadow-lg"
+          className="fixed top-0 left-0 right-0 z-50 shadow-lg bg-white/40 backdrop-blur-sm py-[3vh] px-[3vw]"
           color="#1e42baff"
           style={{
-            borderBottom: "1px solid rgba(40, 107, 200, 0.61)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(5px)",
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
           }}
         >
           {children}

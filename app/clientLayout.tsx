@@ -20,8 +20,10 @@ export default function ClientLayout({
     "/",
     "/documents",
     "/resume",
+    "/projects",
   ];
-  const noLayout = hideLayout.includes(pathname);
+  const noLayout =
+    hideLayout.includes(pathname) || pathname.startsWith("/projects/");
   if (noLayout) {
     return <>{children}</>;
   }

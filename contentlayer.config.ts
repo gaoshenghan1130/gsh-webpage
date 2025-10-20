@@ -151,6 +151,7 @@ export const projJSON = defineDocumentType(() => ({
   filePathPattern: "projects/*.json",
   fields: {
     name: { type: "string", required: true },
+    fullname: { type: "string", required: true },
     file: { type: "string", required: true },
     intro: { type: "string", required: true },
     desc: { type: "string", required: true },

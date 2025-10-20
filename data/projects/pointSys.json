@@ -1,9 +1,10 @@
 {
   "name": "PointSys",
-  "file": "PointSys.md",
+  "fullname": "Point Management System for UMich IEEE Student Branch",
+  "file": "projects/pointSys",
   "link": "https://github.com/gaoshenghan1130",
-  "intro": "A modular point cloud processing system in C++ with PCL, supporting filtering, segmentation, and visualization.",
-  "tags": ["C++", "PCL", "Point Cloud"],
-  "image": "/static/images/ocean.jpeg",
-  "desc": "PointSys is a comprehensive point cloud processing system developed in C++. It leverages the Point Cloud Library (PCL) to provide a suite of tools for filtering, segmenting, and visualizing 3D point cloud data. The system is designed with modularity in mind, allowing users to easily extend its functionality by adding new processing modules. Key features include noise reduction, outlier removal, plane segmentation, and 3D visualization capabilities. PointSys is ideal for applications in robotics, computer vision, and 3D mapping."
+  "intro": "A score tracking and management system for IEEE Student Branch",
+  "tags": ["Node.js", "Express", "RESTful API", "Database"],
+  "image": "/static/images/pointSys.png",
+  "desc": "PointSys is a web-based point management system developed for the IEEE Student Branch. It allows organizers to record, update, and visualize scores for events in real time. The system includes a RESTful API backend for secure data management and supports features such as user authentication, score logging, and leaderboard generation. Designed with scalability and simplicity in mind, PointSys streamlines the process of managing event points across multiple activities."
 }

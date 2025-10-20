@@ -1,5 +1,6 @@
 {
   "name": "Teleop",
+  "fullname": "Teleoperation System Optimization",
   "file": "Teleop.md",
   "link": "https://github.com/gaoshenghan1130",
   "intro": "A teleoperation system for remote control of robots using ROS and custom hardware interfaces.",

@@ -26,7 +26,7 @@ export default function LeftFilter({
   };
 
   return (
-    <div className="fixed top-[25.0%] left-0 flex h-[73.0%] w-1/4 flex-col overflow-y-auto rounded-r-3xl border border-gray-200/50 bg-white/60 px-6 py-4 shadow-md backdrop-blur-2xl transition-all duration-300">
+    <div className="z-0 fixed top-[25.0%] left-0 flex h-[73.0%] w-1/4 flex-col overflow-y-auto rounded-r-3xl border border-gray-200/50 bg-white/60 px-6 py-4 shadow-md backdrop-blur-2xl transition-all duration-300">
       <h3 className="mb-3 text-sm font-semibold tracking-wide text-gray-800 uppercase">
         Filter
       </h3>

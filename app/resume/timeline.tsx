@@ -23,7 +23,7 @@ export default function Timeline() {
 
       {/* 中间线：节点对齐 */}
       <div
-        className="absolute left-0 h-[2px] w-screen bg-gray-300"
+        className="absolute left-0 h-[2px] w-[200vw] bg-gray-300"
         style={{ top: middleLineTop }}
       />
 
@@ -50,7 +50,7 @@ export default function Timeline() {
           return (
             <motion.div
               key={index}
-              className="group relative flex flex-col items-center"
+              className="group relative flex flex-col items-center z-[9000]"
               whileHover={{ scale: 1.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 22 }}
               onHoverStart={() => setHoveredIndex(index)}
@@ -88,7 +88,7 @@ export default function Timeline() {
 
               {/* 详细描述框 */}
               <motion.div
-                className="absolute z-10 mt-3 min-h-[8rem] w-60 rounded-xl border border-gray-200 bg-white/90 px-4 py-2 text-sm break-words whitespace-normal text-gray-800 opacity-0 shadow-xl backdrop-blur-md transition-opacity duration-300"
+                className="absolute mt-3 min-h-[8rem] w-60 rounded-xl border border-gray-200 bg-white/90 px-4 py-2 text-sm break-words whitespace-normal text-gray-800 opacity-0 shadow-xl backdrop-blur-md transition-opacity duration-300"
                 style={{
                   pointerEvents: hoveredIndex === index ? "auto" : "none",
                   top: `calc(${middleLineTop} + 2rem)`,

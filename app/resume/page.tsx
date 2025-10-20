@@ -3,7 +3,7 @@
 import LeftFilter from "./LeftFilter";
 import RightProjects from "./RightProjects";
 import Timeline from "./timeline";
-import skillCategories from "@/data/projects/skills.json";
+import skillCategories from "../data/skills.json";
 import { useState } from "react";
 import pointSys from "@/data/projects/pointSys.json";
 import teleop from "@/data/projects/teleop.json";
