@@ -13,7 +13,7 @@ export default function Timeline() {
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing"
+      className="relative h-screen w-full cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing top-[-5%]"
     >
       {/* 分割线：timeline和下方面板 */}
       {/* <div

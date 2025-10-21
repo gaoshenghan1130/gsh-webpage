@@ -23,18 +23,18 @@ interface RightProjectsProps {
 export default function RightProjects({ projects }: RightProjectsProps) {
   const router = useRouter();
   return (
-    <div className="fixed top-[20%] right-9 h-[75vh] max-h-[75vh] w-[70%] overflow-y-auto pr-6">
+    <div className="fixed top-[22%] right-9 h-[75vh] max-h-[75vh] w-[70%] overflow-y-auto pr-6">
       <div className="relative top-[5vh] left-3 flex w-full flex-wrap overflow-visible">
         {projects.map((project, index) => {
-          const col = index % 5;
-          const row = Math.floor(index / 5);
+          const col = index % 4;
+          const row = Math.floor(index / 4);
 
           return (
             <motion.div
               key={project.name}
               whileHover={{ scale: 1.08, zIndex: 10000 }}
               transition={{ type: "spring", stiffness: 250, damping: 18 }}
-              className="group relative aspect-square w-[23%] cursor-pointer overflow-hidden rounded-2xl bg-white/50 shadow-md backdrop-blur-xl transition-all duration-300 hover:shadow-2xl focus:outline-none"
+              className="group relative aspect-square w-[28%] cursor-pointer overflow-hidden rounded-2xl bg-white/50 shadow-md backdrop-blur-xl transition-all duration-300 hover:shadow-2xl focus:outline-none"
               style={{
                 zIndex: col * 100 + row,
                 marginLeft: col === 0 ? 0 : "-4%", // 横向交叠
@@ -45,9 +45,7 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                 if (document.activeElement instanceof HTMLElement) {
                   document.activeElement.blur();
                 }
-
-                // 执行导航
-                router.push(`/${project.file}`);
+                window.open(`/${project.file}`, "_blank");
               }}
             >
               {/* 封面图 */}
@@ -55,7 +53,7 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                 src={project.image}
                 alt={project.name}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-contain transition-transform duration-500 group-hover:scale-130"
               />
 
               {/* 顶部标题条 */}
@@ -94,7 +92,7 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[10px] text-blue-300 hover:text-blue-100"
+                  className="inline-flex items-center gap-1 text-[10px] text-blue-300 hover:text-blue-100 z-[9999]"
                 >
                   View on GitHub
                   <ExternalLink className="h-3 w-3" />

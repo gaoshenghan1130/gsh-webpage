@@ -1,0 +1,238 @@
+---
+name: UDP Server for Python-C++ Communication
+intro: UDP Server for Python-C++ Communication implement for SJTU SRC Falcon 2023
+desc: This project involves the development of a UDP server that facilitates communication between Python and C++ applications. It leverages Qt's event-driven architecture for efficient asynchronous I/O operations in C++ and utilizes Python's socket library and asyncio for seamless UDP communication. The server supports multiple concurrent connections, ensuring low latency and high throughput for data transmission. Additionally, it implements a custom protocol using protobuf to ensure reliable data transfer even when one side is temporarily unresponsive. This UDP server is ideal for applications requiring fast and reliable communication between Python and C++ components, enabling continuous debugging and development without the need to restart the Python application.
+tags:
+  [
+    "C++",
+    "Networking",
+    "Python",
+    "Qt",
+    "Asynchronous I/O",
+    "Protobuf",
+    "Multithreading",
+  ]
+link: https://github.com/sjtu-src/Falcon2023/tree/dev
+image: /static/images/udpServer.png
+---
+
+# PyModule Features, Principles, and Usage
+
+`PyModule` is a `C++` module designed to call Python code from C++ and retrieve its output.
+
+---
+
+## Features and Use Cases
+
+- Use Python libraries like `numpy` or `scipy` for advanced mathematical computations in C++.
+- Call Python deep learning models, e.g., `torch`.
+- Note: Python scripts usually run slower than C++. Although PyModule supports threading, in a real-time skill frame, the result may not update immediately.
+
+---
+
+## Overview of Call Methods
+
+`PyModule` provides three ways to call Python:
+
+| Method                      | Blocking | Description                                          |
+| --------------------------- | -------- | ---------------------------------------------------- |
+| `runPythonTaskDirect`       | Yes      | Directly run a Python script and wait for result     |
+| `runPythonTaskDirectThread` | No       | Run in a separate thread, may return previous result |
+| `runPythonTaskServer`       | No       | Call via server, faster, recommended                 |
+
+---
+
+## 1. Direct Call (Blocking)
+
+<MermaidChart
+  chart={`graph TD;
+    A[PyModule] --> B[PythonEngine];
+    B --> C[PyCaller];
+    C --> D[QProcess];
+`}
+/>
+
+- Starts a new Python process for each call.
+- Initializes Python interpreter → executes script → captures output.
+- Main thread is blocked, takes ~1–1.5 seconds.
+- Simple and reliable but slow.
+
+**C++ Example**:
+
+```cpp
+QProcess *process = new QProcess();
+process->start(pythonRoute, QStringList() << "test.py");
+process->waitForStarted();
+process->waitForFinished();
+QByteArray result = process->readAllStandardOutput();
+
+Python Example (test.py):
+
+import sys
+
+def main():
+    args = sys.argv[1:]
+    result = sum([int(arg) for arg in args])
+    print(result)
+
+if __name__ == "__main__":
+    main()
+
+Usage in C++:
+
+std::string result = PyModule::Instance()->runPythonTaskDirect("test.py", "1 2 3");
+// result = "6"
+```
+
+Notes:
+
+1. scriptName is relative to Python/Direct/, include .py suffix.
+2. Blocking call may freeze C++ main thread if Python script is long.
+3. Use JSON string if passing complex arguments.
+
+---
+
+2. Threaded Call (Non-blocking)
+
+<MermaidChart
+  chart={`
+graph TD;
+    A[PyModule] --> B[PythonEngine]
+    B --> C[ThreadMaker]
+    D[QThread] --> C
+    C <--> E[PyCaller]
+    E --> F[QProcess]
+    F --> G[TaskResultStore]
+`}
+/>
+
+Features:
+
+- Launches QProcess in a QThread, main thread not blocked.
+- Uses ThreadMaker to wrap thread execution and store results in TaskResultStore.
+- getResult() may return the previous frame’s result if Python hasn’t finished yet.
+- Thread IDs avoid parameter conflicts across tasks.
+
+C++ Example:
+
+```cpp
+
+ThreadMaker *thread = new ThreadMaker(task);
+thread->start();
+std::string result = thread->getResult();
+```
+
+---
+
+3. Server Call (Recommended, Non-blocking)
+
+<MermaidChart
+  chart={`graph TD;
+    A[PyModule] --> B[PythonEngine];
+    B --> C[ThreadMaker];
+    D[QThread] --> C;
+    C <--> E[PyCaller];
+    E --> F[QProcess];
+    F --> G[TaskResultStore];
+`}
+/>
+
+CLI Server (deprecated)
+
+- Communicates via standard input/output.
+- Python continuously reads stdin and executes tasks.
+- High call frequency may initialize duplicate threads.
+
+C++ Example:
+
+```cpp
+pythonProcess->write((message + "\n").toUtf8());
+pythonProcess->waitForBytesWritten();
+pythonProcess->waitForReadyRead();
+return pythonProcess->readAll();
+```
+
+---
+
+UDP Server (Recommended)
+
+- Communication via UDP protocol with protobuf messages.
+- Python receives task → launches thread → executes → sends response.
+- Efficient: avoids restarting Python interpreter.
+- Robust: file pipes prevent repeated thread initialization.
+
+C++ Example:
+
+```cpp
+PY_MSG_Names::RqMsg result = PyModule::Instance()->runPythonTaskServer(msg, 100);
+```
+
+Python Example:
+
+```python
+# UDPServerProtocol handles incoming data asynchronously
+class UDPServerProtocol(asyncio.DatagramProtocol):
+    def datagram_received(self, data, addr):
+        # decode message and launch thread to handle task
+        pass
+```
+
+---
+
+4. Comparison
+
+| Method   | Blocking | Startup Cost | Speed  | Use Case                                  |
+| -------- | -------- | ------------ | ------ | ----------------------------------------- |
+| Direct   | Yes      | High         | Slow   | Simple tests or non-real-time             |
+| Threaded | No       | High         | Medium | Real-time skills, avoid main thread block |
+| Server   | No       | Low          | Fast   | Real-time, high-load tasks, recommended   |
+
+---
+
+5. Recommendations
+   1. Simple script testing → Direct call.
+   2. Real-time skill frame → Threaded call.
+   3. Heavy computation or deep learning → UDP server call.
+
+---
+
+Environment Setup
+
+Python:
+
+- OS: Windows 11
+- Python version: 3.12.7
+- Recommended: use Anaconda for virtual environments.
+- Required packages:
+
+| Type    | Package     | Version |
+| ------- | ----------- | ------- |
+| Server  | protobuf    | 4.25.3  |
+| Server  | libprotobuf | 4.25.3  |
+| Scripts | torch       | latest  |
+| Scripts | numpy       | latest  |
+| Scripts | scipy       | latest  |
+
+Installation:
+
+```bash
+# Using conda
+conda env create -f environment.yml -n SRCPythonEnv
+```
+
+```bash
+# Using pip
+pip install -r requirements.txt
+```
+
+C++:
+
+- Provide Python executable path in Python/SetUp/PythonRoute.txt.
+
+Example:
+
+```plaintext
+C:/Users/<username>/anaconda3/python.exe
+```
+
+⚠️ Python server must start before C++ server to prevent data loss.
