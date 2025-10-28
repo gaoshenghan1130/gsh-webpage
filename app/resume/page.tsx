@@ -9,6 +9,8 @@ import pointSys from "@/data/projects/pointSys.json";
 import teleop from "@/data/projects/teleop.json";
 import udpserver from "@/data/projects/udpServer.json";
 import rrcc from "@/data/projects/RRCC.json";
+import timeWield from "@/data/projects/timeWield.json";
+import { time } from "framer-motion";
 
 export default function ResumePage() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
@@ -40,7 +42,9 @@ export default function ResumePage() {
         selectedSkills={selectedSkills}
         onChange={handleSkillToggle}
       />
-      <RightProjects projects={[pointSys, udpserver, rrcc, teleop]} />
+      <RightProjects
+        projects={[pointSys, udpserver, rrcc, teleop, timeWield]}
+      />
     </main>
   );
 }

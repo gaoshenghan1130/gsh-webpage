@@ -53,7 +53,7 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                 src={project.image}
                 alt={project.name}
                 fill
-                className="object-contain transition-transform duration-500 group-hover:scale-130"
+                className="object-cover transition-transform duration-500 group-hover:scale-130"
               />
 
               {/* 顶部标题条 */}
