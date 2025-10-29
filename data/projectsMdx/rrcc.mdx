@@ -16,4 +16,97 @@ link: https://github.com/sjtu-src/Falcon2023/tree/dev
 image: /static/images/rrcc.png
 ---
 
-For detailed information about the server, please refer to the [UDP Server for Python-C++ Communication](https://gsh-webpage.vercel.app/projects/udpServer) project documentation.
+_For detailed information about the server, please refer to the [UDP Server for Python-C++ Communication](https://gsh-webpage.vercel.app/projects/udpServer) project documentation._
+
+# RRCC Communication Protocol Specification
+
+<TOCInline toc={props.toc} />
+
+## Protocol Overview
+
+The **RRCC Protocol** (_Request–Response–Confirm–ConfirmContinue_) is a custom, lightweight, **Protobuf-based application layer communication protocol**  
+designed for structured message exchange between **C++** and **Python** processes.
+
+It emphasizes a **clear control flow** and **explicit response mechanism**, where the **C++ side initiates and controls communication**, and the **Python side acts as a computational responder**.
+
+---
+
+## Protocol Objectives
+
+- Enable efficient data exchange between C++ and Python
+- Ensure communication order and state consistency
+- Improve system robustness and prevent idle computation loops
+- Maintain a clean, extensible communication interface
+
+---
+
+## Message Definitions (Protobuf)
+
+The definitions are located in `share/proto/py_msg.proto` and include the following message types:
+
+| Message Type      | Description                                              |
+| ----------------- | -------------------------------------------------------- |
+| `Request`         | Initiates a request with parameters                      |
+| `Confirm`         | Acknowledges receipt of the request                      |
+| `Response`        | Returns computed results                                 |
+| `ConfirmContinue` | Indicates whether to continue or terminate communication |
+
+---
+
+## Protocol Flow Diagram
+
+<MermaidChart chart={`
+sequenceDiagram
+    participant CPP as C++ Side
+    participant PY as Python Side
+
+    CPP->>PY: Request (Start)
+    PY-->>CPP: Confirm (Received)
+    Note over CPP: Start timing to wait for response
+    PY-->>CPP: Response (Return result)
+    CPP->>CPP: Process result
+
+    alt Need further computation
+        CPP->>PY: ConfirmContinue (Continue request)
+        PY-->>CPP: Confirm (Received)
+        Note over CPP: Continue timing to wait for response
+        PY-->>CPP: Response (Return result)
+        CPP->>CPP: Process result
+    else No further computation
+        CPP->>PY: ConfirmContinue (End request)
+    end
+
+`} />
+
+---
+
+## State Description
+
+| Stage                           | Initiator | Receiver | Description                                     |
+| ------------------------------- | --------- | -------- | ----------------------------------------------- |
+| Initialize request              | C++       | Python   | Send `Request`                                  |
+| Confirm receipt                 | Python    | C++      | Reply with `Confirm`                            |
+| Execute and return result       | Python    | C++      | Reply with `Response`                           |
+| Decide to continue or terminate | C++       | Python   | Send `ConfirmContinue` or stop sending messages |
+
+---
+
+## Exception Handling
+
+| Scenario                            | Python Side Behavior                                             | C++ Side Behavior                       |
+| ----------------------------------- | ---------------------------------------------------------------- | --------------------------------------- |
+| C++ sends no request after startup  | Python remains idle, does not exit                               | —                                       |
+| C++ crash or debugging interruption | Python remains idle, does not exit                               | —                                       |
+| Python worker thread failure        | Restart the thread upon next retransmission                      | C++ triggers timeout and retransmission |
+| Python main thread crash            | —                                                                | C++ triggers timeout and retransmission |
+| Messages sent out of order          | Ignore `ConfirmContinueMsg` without a corresponding `RequestMsg` | Undefined behavior; may lead to crash   |
+
+---
+
+## Protocol Advantages
+
+- **Clear master-slave relationship**: C++ controls the rhythm; Python focuses on computation
+- **Flexible structure**: More extensible than traditional gRPC; supports passive suspension
+- **Strong decoupling**: The protocol layer isolates business logic for easy extension
+- **Efficient and non-blocking**: Python remains idle when no requests are active
+- Supports long-lived connections and **multi-round communication**

@@ -65,8 +65,11 @@ process->start(pythonRoute, QStringList() << "test.py");
 process->waitForStarted();
 process->waitForFinished();
 QByteArray result = process->readAllStandardOutput();
+```
 
 Python Example (test.py):
+
+```python
 
 import sys
 
@@ -77,9 +80,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 
 Usage in C++:
 
+```cpp
 std::string result = PyModule::Instance()->runPythonTaskDirect("test.py", "1 2 3");
 // result = "6"
 ```
