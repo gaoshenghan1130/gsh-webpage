@@ -24,14 +24,14 @@ export default function ResumePage() {
 
   return (
     <main className="h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="w-full bg-yellow-400 text-black text-center py-2 font-medium">
+      <div className="w-full bg-yellow-400 text-black text-center py-2 font-medium relative z-[99999]">
         This page is under construction. Some content may be incomplete or
         outdated. Please refer to{" "}
         <a
           href="https://github.com/gaoshenghan1130"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:text-blue-700"
+          className="underline hover:text-blue-700 z-[999]"
         >
           GitHub
         </a>{" "}

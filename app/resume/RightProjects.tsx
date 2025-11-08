@@ -41,14 +41,14 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                 marginTop: row === 0 ? 0 : "-4%", // 纵向交叠
               }}
               onClick={() => {
-                // 清除当前聚焦元素，防止蓝框残留
+                // clear focus to remove outline
                 if (document.activeElement instanceof HTMLElement) {
                   document.activeElement.blur();
                 }
                 window.open(`/${project.file}`, "_blank");
               }}
             >
-              {/* 封面图 */}
+              {/* Pic for Cover */}
               <Image
                 src={project.image}
                 alt={project.name}
@@ -56,14 +56,14 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                 className="object-cover transition-transform duration-500 group-hover:scale-130"
               />
 
-              {/* 顶部标题条 */}
+              {/* Top Title Bar */}
               <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-black/40 to-transparent p-2">
                 <h4 className="text-sm font-semibold text-white drop-shadow-md w-[70%]">
                   {project.fullname}
                 </h4>
               </div>
 
-              {/* 悬浮详情 */}
+              {/* Hover Details */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileHover={{ opacity: 1, x: 0 }}
@@ -93,6 +93,9 @@ export default function RightProjects({ projects }: RightProjectsProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[10px] text-blue-300 hover:text-blue-100 z-[9999]"
+                  onClick={(e) => {
+                    e.stopPropagation(); // prevent card click
+                  }}
                 >
                   View on GitHub
                   <ExternalLink className="h-3 w-3" />
