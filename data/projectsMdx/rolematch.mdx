@@ -1,0 +1,90 @@
+---
+name: rolematch
+intro: A role matching system for the best advancer in SJTU SRC Robocup.
+desc: RoleMatch is a web-based role matching system developed for the SJTU SRC Robocup. It enhance the original version of role matching system by taking current player velocity and ball velocity into consideration. The system uses Ferrari's approach to solve quartic programming problems, ensuring optimal role assignments based on dynamic game conditions. Designed with efficiency and accuracy in mind, RoleMatch significantly improves the decision-making process for player roles during matches.
+link: https://github.com/sjtu-src/Falcon2023/tree/dev
+tags: ["Qt", "C++", "Algrithm"]
+image: /static/images/rolematch.png
+---
+
+# Role Matching for Best Advancer in SJTU SRC Robocup
+
+<InlineCode>RoleMatch</InlineCode> is a role matching system developed for the
+SJTU SRC Robocup team.
+
+## Overview
+
+This module estimates the **time required for each robot to reach the ball**, under simplified physical assumptions.  
+It is mainly used to determine the **best attacker** in a multi-robot system.
+
+---
+
+## Assumptions
+
+1. The ball moves at a **constant velocity**.
+2. Each robot starts from its **current position and velocity**, accelerating toward the ball at its **maximum acceleration** `a_max`.
+
+---
+
+## Algorithm Purpose
+
+The main goals are:
+
+- Estimate **chasing time** for each robot
+- Avoid unstable switching between attackers when times are close
+- Choose a **best attacker** based on a scoring system  
+  that considers both _shortest time_ and _duration of being optimal_
+
+---
+
+## Function Overview
+
+### `ourBestChaser(const CVisionModule* pVision)`
+
+Determines the **best robot** to chase the ball.
+
+| Step | Logic                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------- |
+| 1    | If any robot is within `disForDisJudge`, choose the closest one directly.                         |
+| 2    | Otherwise, compute **chasing time** for each robot using `findTime()`.                            |
+| 3    | Select the robot with the **minimum estimated time**.                                             |
+| 4    | Introduce a **stabilization delay** (`waitHowManyCycleBeforeChange`) to avoid frequent switching. |
+
+---
+
+### `findTime(p, v, p0, v0, a_max)`
+
+Computes the **minimum time** for a robot at position `p` with velocity `v`  
+to catch a ball at `p0` with velocity `v0`, given the robot's max acceleration `a_max`.
+
+#### Mathematical Model
+
+After coordinate transformation (ball velocity → x-axis):
+
+$$
+\begin{cases}
+p_y + v_y t + \frac{1}{2} a_y t^2 = 0 \\
+p_x + v_x t + \frac{1}{2} a_x t^2 = v_0 t \\
+|a| = a_{max}
+\end{cases}
+$$
+
+This forms a **quartic equation** in `t`, solved via **Ferrari's method**.  
+The smallest positive real root is the estimated chasing time.
+
+---
+
+### Ferrari() and sqrtn_complex()
+
+These implement the **Ferrari algorithm** to find all four roots of the quartic equation,  
+using complex arithmetic to handle non-real intermediate results.
+
+---
+
+<InlineCode>transCoordinateSys()</InlineCode>
+
+Transforms coordinates such that the **ball's velocity aligns with the x-axis**, simplifying equations:
+
+```cpp
+point_complex *= conj(ball_v_complex / abs(ball_v_complex));
+```

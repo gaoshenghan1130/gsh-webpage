@@ -10,6 +10,7 @@ import teleop from "@/data/projects/teleop.json";
 import udpserver from "@/data/projects/udpServer.json";
 import rrcc from "@/data/projects/RRCC.json";
 import timeWield from "@/data/projects/timeWield.json";
+import rolematch from "@/data/projects/rolematch.json";
 import { time } from "framer-motion";
 
 export default function ResumePage() {
@@ -43,7 +44,7 @@ export default function ResumePage() {
         onChange={handleSkillToggle}
       />
       <RightProjects
-        projects={[pointSys, udpserver, rrcc, teleop, timeWield]}
+        projects={[pointSys, udpserver, rrcc, teleop, timeWield, rolematch]}
       />
     </main>
   );

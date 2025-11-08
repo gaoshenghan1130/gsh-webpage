@@ -199,3 +199,40 @@ body {
   color: #2563eb; /* blue-600 */
   text-decoration: underline;
 }
+
+/* ---------- Inline code appearance overrides ---------- */
+/* 优先覆盖 .prose 对 inline code 的默认样式 */
+.prose :where(code):not(pre code),
+.prose-invert :where(code):not(pre code) {
+  background: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+}
+
+/* 针对标题中的 inline code（h1~h4） */
+.prose h1 code,
+.prose h2 code,
+.prose h3 code,
+.prose h4 code {
+  background: none !important;
+  padding: 0 !important;
+  border: none !important;
+  color: inherit !important;
+  font-weight: 600 !important;
+}
+
+.prose-invert h1 code,
+.prose-invert h2 code,
+.prose-invert h3 code,
+.prose-invert h4 code {
+  background: none !important;
+  padding: 0 !important;
+  border: none !important;
+  color: inherit !important;
+  font-weight: 600 !important;
+}
+/* ---------- End of inline code appearance overrides ---------- */

@@ -7,6 +7,7 @@ import CustomLink from "./Link";
 import TableWrapper from "./TableWrapper";
 import MermaidChart from "./mermaidChart";
 import AutoPlayVideo from "@/components/AutoVideoPlayer";
+import InlineCode from "@/components/inlinecode";
 
 export const components: MDXComponents = {
   Image,
@@ -17,4 +18,7 @@ export const components: MDXComponents = {
   table: TableWrapper,
   BlogNewsletterForm,
   MermaidChart,
+  code: InlineCode,
+  inlineCode: InlineCode,
+  InlineCode,
 };
