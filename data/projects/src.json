@@ -8,7 +8,9 @@
     "Web Development",
     "Software Engineering",
     "Algorithms",
-    "Cybersecurity"
+    "Cybersecurity",
+    "Networking",
+    "Robotics"
   ],
   "image": "/static/images/src.jpg",
   "desc": "Student Project Team where I have contributed to multiple software engineering projects including UDP server implementation, RRCC protocol design, and role matching algorithms for robotic soccer applications."

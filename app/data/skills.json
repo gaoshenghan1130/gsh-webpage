@@ -8,7 +8,11 @@
     "skills": ["Software Engineering", "Web Development", "Game Design"]
   },
   {
-    "category": "Security & AI",
-    "skills": ["Cybersecurity", "Machine Learning"]
+    "category": "Security & Networking",
+    "skills": ["Cybersecurity", "Networking"]
+  },
+  {
+    "category": "Data & AI",
+    "skills": ["Algorithms"]
   }
 ]

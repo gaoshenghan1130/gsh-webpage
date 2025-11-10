@@ -4,7 +4,7 @@
   "file": "projects/rrcc",
   "link": "https://github.com/sjtu-src/Falcon2023/tree/dev",
   "intro": "RRCC protocol implemented for UDP Server between Python and C++ with Protobuf",
-  "tags": ["Web Development", "Software Engineering", "Cybersecurity"],
+  "tags": ["Web Development", "Software Engineering", "Networking"],
   "image": "/static/images/rrcc.png",
   "desc": "This project involves the implementation of the RRCC protocol for a UDP server facilitating communication between Python and C++ applications. It utilizes Protobuf for efficient serialization and deserialization of messages, ensuring reliable data transfer even in the presence of network issues."
 }

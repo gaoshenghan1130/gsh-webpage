@@ -4,7 +4,7 @@
   "file": "projects/rolematch",
   "link": "https://github.com/sjtu-src/Falcon2023/tree/dev",
   "intro": "A role matching system for the best advancer in SJTU SRC Robocup",
-  "tags": ["Robotics", "Software Engineering"],
+  "tags": ["Robotics", "Software Engineering", "Algorithms"],
   "image": "/static/images/rolematch.png",
   "desc": "RoleMatch is a web-based role matching system developed for the SJTU SRC Robocup. It enhance the original version of role matching system by taking current player velocity and ball velocity into consideration. The system uses Ferrari's approach to solve quartic programming problems, ensuring optimal role assignments based on dynamic game conditions. Designed with efficiency and accuracy in mind, RoleMatch significantly improves the decision-making process for player roles during matches."
 }
