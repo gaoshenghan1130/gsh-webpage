@@ -6,17 +6,17 @@ import Timeline from "./timeline";
 import skillCategories from "../data/skills.json";
 import { useState } from "react";
 import pointSys from "@/data/projects/pointSys.json";
-import teleop from "@/data/projects/teleop.json";
+//import teleop from "@/data/projects/teleop.json";
 import udpserver from "@/data/projects/udpServer.json";
 import rrcc from "@/data/projects/RRCC.json";
 import timeWield from "@/data/projects/timeWield.json";
 import rolematch from "@/data/projects/rolematch.json";
-import { time } from "framer-motion";
+import src from "@/data/projects/src.json";
 
 export default function ResumePage() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-  const projectList = [pointSys, udpserver, rrcc, timeWield, rolematch];
+  const projectList = [pointSys, udpserver, rrcc, timeWield, rolematch, src];
 
   const handleSkillToggle = (skill: string) => {
     setSelectedSkills((prev) =>

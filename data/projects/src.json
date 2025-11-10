@@ -1,15 +1,15 @@
 {
   "name": "src",
   "fullname": "Shanghai Jiao Tong University School Robocup SSL(Small Size League)",
-  "file": "projects/rrcc",
-  "link": "https://github.com/sjtu-src/Falcon2023/tree/dev",
-  "intro": "RRCC protocol implemented for UDP Server between Python and C++ with Protobuf",
+  "file": "projects/src",
+  "link": "https://github.com/sjtu-src/Falcon2023",
+  "intro": "Student Project Team aiming to compete in Robocup SSL",
   "tags": [
     "Web Development",
     "Software Engineering",
     "Algorithms",
     "Cybersecurity"
   ],
-  "image": "/static/images/rrcc.png",
-  "desc": "This project involves the implementation of the RRCC protocol for a UDP server facilitating communication between Python and C++ applications. It utilizes Protobuf for efficient serialization and deserialization of messages, ensuring reliable data transfer even in the presence of network issues."
+  "image": "/static/images/src.jpg",
+  "desc": "Student Project Team where I have contributed to multiple software engineering projects including UDP server implementation, RRCC protocol design, and role matching algorithms for robotic soccer applications."
 }
