@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
-
+import { useEffect } from "react";
 interface LeftFilterProps {
   skillCategories: { category: string; skills: string[] }[];
   selectedSkills: string[];
@@ -15,7 +15,9 @@ export default function LeftFilter({
   selectedSkills,
   onChange,
 }: LeftFilterProps) {
-  const [openCategories, setOpenCategories] = useState<string[]>([]);
+  const [openCategories, setOpenCategories] = useState<string[]>(() =>
+    skillCategories.map((c) => c.category),
+  );
 
   const toggleCategory = (category: string) => {
     setOpenCategories((prev) =>
@@ -50,7 +52,7 @@ export default function LeftFilter({
               </button>
 
               {/* 展开技能列表 */}
-              <AnimatePresence initial={false}>
+              <AnimatePresence>
                 {isOpen && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}

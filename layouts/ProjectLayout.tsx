@@ -6,6 +6,8 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import ScrollHeader from "@/components/ScrollHeader";
 import { useEffect } from "react";
+import type { CoreContent } from "pliny/utils/contentlayer";
+import type { Project } from ".contentlayer/generated";
 
 interface ProjectLayoutProps {
   title: string;
@@ -14,7 +16,9 @@ interface ProjectLayoutProps {
   link: string;
   image: string;
   tags?: string[];
-  children?: ReactNode; // MDX正文
+  children?: ReactNode;
+  childrenProjects?: CoreContent<Project>[]; // project's children configs
+  related?: ReactNode; // related projects
 }
 
 export default function ProjectLayout({
@@ -25,91 +29,116 @@ export default function ProjectLayout({
   image,
   tags = [],
   children,
+  childrenProjects,
+  related,
 }: ProjectLayoutProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
+  const sideChildren = childrenProjects;
+
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden"; // 禁止外部滚动
+    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = originalOverflow; // 页面卸载时恢复
+      document.body.style.overflow = originalOverflow;
     };
   }, []);
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div
-        ref={containerRef}
-        className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 overflow-y-auto h-screen bg-white shadow-lg"
-      >
-        <ScrollHeader containerRef={containerRef}>
-          <div className="flex items-center justify-between">
-            <h1
-              className="text-3xl font-bold text-gray-500 transition-all duration-300 
-             hover:text-black/70 hover:scale-105 
-             hover:drop-shadow-[0_0_4px_rgba(0,0,0,0.3)] cursor-pointer"
-            >
-              {title}
-            </h1>
-            <Link
-              href="/resume"
-              className="text-xl text-blue-300 transition-all duration-300 hover:scale-110 hover:text-blue-400 hover:drop-shadow-[0_0_6px_rgba(96,165,250,0.8)]"
-            >
-              Back
-            </Link>
-          </div>
-        </ScrollHeader>
-        <div className="pt-16"></div>
+      {/* --- 全局两栏布局 --- */}
+      <div className="max-w-7xl mx-auto flex gap-6 px-4 py-12">
+        {/* --- 左侧正文 --- */}
+        <div
+          ref={containerRef}
+          className=" flex-1 overflow-y-auto bg-white shadow-lg rounded-lg p-6 max-h-screen"
+        >
+          <ScrollHeader containerRef={containerRef}>
+            <div className="flex items-center justify-between">
+              <h1
+                className="text-3xl font-bold text-gray-500 transition-all duration-300 
+                hover:text-black/70 hover:scale-105 
+                hover:drop-shadow-[0_0_4px_rgba(0,0,0,0.3)] cursor-pointer"
+              >
+                {title}
+              </h1>
+              <Link
+                href="/resume"
+                className="text-xl text-blue-300 transition-all duration-300 hover:scale-110 hover:text-blue-400 hover:drop-shadow-[0_0_6px_rgba(96,165,250,0.8)]"
+              >
+                Back
+              </Link>
+            </div>
+          </ScrollHeader>
 
-        {/* 项目标题 */}
-        <header className="mb-6">
-          <p className="text-gray-500">{intro}</p>
-          {/* 标签 */}
-          {tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm"
-                >
-                  {tag}
-                </span>
+          <div className="pt-16"></div>
+
+          {image && (
+            <div className="mb-6 relative w-full sm:h-96">
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="object-contain rounded-lg shadow-lg"
+              />
+            </div>
+          )}
+
+          {desc && <p className="mb-6 text-sm text-gray-400">{desc}</p>}
+
+          <div className="prose prose-sm max-w-none mb-12">{children}</div>
+
+          <Footer />
+        </div>
+
+        {/* --- 右侧栏 --- */}
+        <div className="w-72 shrink-0 overflow-y-auto h-full bg-white/60 rounded-lg shadow-lg backdrop-blur-xl p-4 hidden lg:block">
+          <header className="mb-4 mt-[4vh]">
+            {/* 标签 */}
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 ">
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </header>
+          {childrenProjects && childrenProjects.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Children Projects
+              </h2>
+              {childrenProjects.map((child) => (
+                <div key={child.slug} className="mb-6">
+                  <h3 className="text-md font-medium text-gray-600 mb-1">
+                    {child.name}
+                  </h3>
+                  <p className="text-sm text-gray-500">{child.intro}</p>
+                  <Link
+                    href={`/projects/${child.slug}`}
+                    className="text-blue-500 hover:underline text-sm"
+                  >
+                    Read More
+                  </Link>
+                </div>
               ))}
             </div>
           )}
-        </header>
 
-        {/* 项目图片 */}
-        {image && (
-          <div className="mb-6 relative w-full h-64 sm:h-96">
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="object-contain rounded-lg shadow-lg"
-            />
-          </div>
-        )}
-
-        {/* 项目链接 */}
-        {link && (
-          <p className="mb-6">
-            <Link
-              href={link}
-              target="_blank"
-              className="text-blue-600 hover:underline"
-            >
-              Visit Project
-            </Link>
-          </p>
-        )}
-
-        {/* 描述 */}
-        {desc && <p className="mb-6 text-lg text-gray-700">{desc}</p>}
-
-        {/* MDX正文 */}
-        {children && <div className="prose max-w-none">{children}</div>}
-        <Footer />
+          {related && (
+            <div>
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Related Projects
+              </h2>
+              {related}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

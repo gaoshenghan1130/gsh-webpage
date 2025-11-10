@@ -4,14 +4,7 @@
   "file": "projects/src",
   "link": "https://github.com/sjtu-src/Falcon2023",
   "intro": "Student Project Team aiming to compete in Robocup SSL",
-  "tags": [
-    "Web Development",
-    "Software Engineering",
-    "Algorithms",
-    "Cybersecurity",
-    "Networking",
-    "Robotics"
-  ],
+  "tags": ["Software Engineering", "Algorithms", "Networking", "Robotics"],
   "image": "/static/images/src.jpg",
   "desc": "Student Project Team where I have contributed to multiple software engineering projects including UDP server implementation, RRCC protocol design, and role matching algorithms for robotic soccer applications."
 }

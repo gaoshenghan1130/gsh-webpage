@@ -14,7 +14,9 @@ import rolematch from "@/data/projects/rolematch.json";
 import src from "@/data/projects/src.json";
 
 export default function ResumePage() {
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(() =>
+    skillCategories.flatMap((c) => c.skills),
+  );
 
   const projectList = [pointSys, udpserver, rrcc, timeWield, rolematch, src];
 
@@ -26,7 +28,7 @@ export default function ResumePage() {
 
   const filteredProjects = projectList.filter((project) => {
     if (selectedSkills.length === 0) return true;
-    return selectedSkills.every((skill) => project.tags.includes(skill));
+    return selectedSkills.some((skill) => project.tags.includes(skill));
   });
 
   return (

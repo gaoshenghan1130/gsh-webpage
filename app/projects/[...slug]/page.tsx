@@ -5,6 +5,8 @@ import { coreContent } from "pliny/utils/contentlayer";
 import { MDXLayoutRenderer } from "pliny/mdx-components";
 import { components } from "@/components/MDXComponents";
 import ProjectLayout from "@/layouts/ProjectLayout";
+import type { CoreContent } from "pliny/utils/contentlayer";
+import type { Project } from ".contentlayer/generated";
 
 export const generateStaticParams = async () => {
   const jsonSlugs = allJSONs.map((p) => p.name);
@@ -21,6 +23,23 @@ export default async function Page(props: {
 
   const projectMDX = allProjects.find((p) => p.slug === decodedSlug);
 
+  const childProjects = (): CoreContent<Project>[] => {
+    console.log("Project MDX:", projectMDX?.childrenProjects);
+    if (!projectMDX || !projectMDX.childrenProjects) return [];
+
+    const result: CoreContent<Project>[] = [];
+
+    for (const proj of projectMDX.childrenProjects) {
+      const child = allProjects.find((p) => p.name === proj);
+      if (child) {
+        result.push(coreContent(child));
+      }
+      console.log("Child project:", child);
+    }
+
+    return result;
+  };
+
   if (!projectMDX) return notFound();
 
   const content = coreContent(projectMDX);
@@ -33,6 +52,7 @@ export default async function Page(props: {
       link={projectMDX.link}
       image={projectMDX.image}
       tags={projectMDX.tags}
+      childrenProjects={childProjects()}
     >
       <MDXLayoutRenderer
         code={projectMDX.body.code}

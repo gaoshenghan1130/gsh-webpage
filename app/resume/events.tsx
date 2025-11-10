@@ -6,7 +6,7 @@ export const events = [
   },
   {
     year: "2023.09",
-    desc: "First College Year",
+    desc: "First College Year in SJTU",
     detail:
       "Get admitted to SJTU, majoring in Electrical and Computer Engineering. Joined SRC Team.",
   },
@@ -27,7 +27,7 @@ export const events = [
   },
   {
     year: "2025.3",
-    desc: "Admitted to University of Michigan",
+    desc: "Attend University of Michigan",
     detail:
       "Worked on embedded systems for unicycle with Prof. Gabor and Post Doc. Mate Vizi.",
   },

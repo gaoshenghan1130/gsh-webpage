@@ -4,12 +4,7 @@
   "file": "projects/udpServer",
   "link": "https://github.com/sjtu-src/Falcon2023/tree/dev",
   "intro": "UDP server implemented as Python and C++ communication module",
-  "tags": [
-    "Software Engineering",
-    "Web Development",
-    "Cybersecurity",
-    "Networking"
-  ],
+  "tags": ["Software Engineering", "Networking"],
   "image": "/static/images/udpServer.png",
   "desc": "This project involves the development of a high-performance UDP server that serves as a communication module between Python and C++ applications. Mainly intended for utilization of python libraries in C++ projects. It inherits Qt's event-driven architecture for efficient asynchronous I/O operations in C++ end and, on the Python side, it leverages the socket library and asyncio for seamless UDP communication. It supports multiple concurrent connections, ensuring low latency and high throughput for data transmission. Also designed protocol RRCC with protobuf, it ensures reliable data transfer when one side is hanging. This UDP server is ideal for applications requiring fast and reliable communication between Python and C++ components, and enable continuous debugging and development as Python end does not need to be relaunched each time."
 }
