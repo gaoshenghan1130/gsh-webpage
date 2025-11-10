@@ -1,27 +1,36 @@
 "use client";
 
-import { motion, vh } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { events } from "./events";
 
 export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const middleLineTop = "10vh"; // 1/6，高度节点对齐
+
+  const handleHoverStart = (index: number) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredIndex(index);
+    }, 100); // 延迟 500ms
+  };
+
+  const handleHoverEnd = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredIndex(null);
+    }, 1500); // 延迟取消 hover
+  };
 
   return (
     <div
       ref={containerRef}
       className="relative h-screen w-full cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing top-[-5%]"
     >
-      {/* 分割线：timeline和下方面板 */}
-      {/* <div
-        className="absolute left-0 h-[2px] w-screen bg-[#0B3985]"
-        style={{ top: dividerLineTop }}
-      /> */}
-
-      {/* 中间线：节点对齐 */}
+      {/* 中间线 */}
       <div
         className="absolute left-0 h-[2px] w-[200vw] bg-gray-300"
         style={{ top: middleLineTop }}
@@ -41,10 +50,28 @@ export default function Timeline() {
       >
         {events.map((event, index) => {
           let offset = 0;
+
           if (hoveredIndex !== null) {
-            const distance = Math.abs(index - hoveredIndex);
-            if (distance === 1) offset = index < hoveredIndex ? -60 : 60;
-            if (distance === 2) offset = index < hoveredIndex ? -30 : 30;
+            const distance = index - hoveredIndex;
+
+            // hovered 节点本身不动
+            if (index === hoveredIndex) offset = 0;
+            else {
+              // 边缘 hover 不动
+              if (hoveredIndex === 0 && index < hoveredIndex) offset = 0;
+              else if (
+                hoveredIndex === events.length - 1 &&
+                index > hoveredIndex
+              )
+                offset = 0;
+              else {
+                // 根据相对位置偏移
+                if (distance === -1) offset = -60;
+                else if (distance === 1) offset = 60;
+                else if (distance === -2) offset = -30;
+                else if (distance === 2) offset = 30;
+              }
+            }
           }
 
           return (
@@ -53,13 +80,13 @@ export default function Timeline() {
               className="group relative flex flex-col items-center z-[9000]"
               whileHover={{ scale: 1.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 22 }}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
+              onHoverStart={() => handleHoverStart(index)}
+              onHoverEnd={handleHoverEnd}
               animate={{ x: offset }}
             >
               {/* 节点圆点 */}
               <motion.div
-                className="x-[-2px] relative z-10 h-4 w-4 rounded-full bg-gray-400 shadow-md group-hover:bg-blue-500"
+                className="relative z-10 h-4 w-4 rounded-full bg-gray-400 shadow-md group-hover:bg-blue-500"
                 whileHover={{
                   scale: 1.6,
                   boxShadow: "0 0 12px rgba(40, 101, 198, 1)",
