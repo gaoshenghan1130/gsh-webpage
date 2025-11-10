@@ -6,5 +6,6 @@
   "intro": "A score tracking and management system for IEEE Student Branch",
   "tags": ["Web Development", "Software Engineering", "Cybersecurity"],
   "image": "/static/images/pointSys.png",
+  "slug": "pointsys",
   "desc": "PointSys is a web-based point management system developed for the IEEE Student Branch. It allows organizers to record, update, and visualize scores for events in real time. The system includes a RESTful API backend for secure data management and supports features such as user authentication, score logging, and leaderboard generation. Designed with scalability and simplicity in mind, PointSys streamlines the process of managing event points across multiple activities."
 }

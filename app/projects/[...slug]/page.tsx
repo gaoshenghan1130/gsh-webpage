@@ -23,16 +23,16 @@ export default async function Page(props: {
 
   const projectMDX = allProjects.find((p) => p.slug === decodedSlug);
 
-  const childProjects = (): CoreContent<Project>[] => {
+  const childProjects = (): (typeof allJSONs)[number][] => {
     console.log("Project MDX:", projectMDX?.childrenProjects);
     if (!projectMDX || !projectMDX.childrenProjects) return [];
 
-    const result: CoreContent<Project>[] = [];
+    const result: (typeof allJSONs)[number][] = [];
 
     for (const proj of projectMDX.childrenProjects) {
-      const child = allProjects.find((p) => p.name === proj);
+      const child = allJSONs.find((p) => p.name === proj);
       if (child) {
-        result.push(coreContent(child));
+        result.push(child);
       }
       console.log("Child project:", child);
     }

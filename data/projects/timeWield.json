@@ -6,5 +6,6 @@
   "intro": "A teleoperation system for remote robot control built with ROS and custom hardware interfaces.",
   "tags": ["Game Design", "Software Engineering", "Algorithms"],
   "image": "/static/images/timeWielder_square.png",
+  "slug": "timeWield",
   "desc": "Time Wielder: Odyssey is a story-driven game centered on the power to bend time itself. Players take on the role of a traveler capable of slowing, speeding up, or reversing time to solve intricate puzzles, navigate dangerous environments, and uncover the mysteries of a vast and beautifully crafted world. Blending strategy, reflex, and narrative depth, the game challenges players to think critically about cause and effect as they reshape moments to their advantage. Developed in Elm and grounded in functional programming principles, Time Wielder: Odyssey delivers a smooth, responsive, and deeply immersive gameplay experience, complete with evolving character arcs, dynamic time-based mechanics, and an evocative, atmospheric soundtrack."
 }

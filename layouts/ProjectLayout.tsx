@@ -8,6 +8,7 @@ import ScrollHeader from "@/components/ScrollHeader";
 import { useEffect } from "react";
 import type { CoreContent } from "pliny/utils/contentlayer";
 import type { Project } from ".contentlayer/generated";
+import { allJSONs } from ".contentlayer/generated";
 
 interface ProjectLayoutProps {
   title: string;
@@ -17,7 +18,7 @@ interface ProjectLayoutProps {
   image: string;
   tags?: string[];
   children?: ReactNode;
-  childrenProjects?: CoreContent<Project>[]; // project's children configs
+  childrenProjects?: (typeof allJSONs)[number][];
   related?: ReactNode; // related projects
 }
 

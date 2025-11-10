@@ -6,5 +6,6 @@
   "intro": "Student Project Team aiming to compete in Robocup SSL",
   "tags": ["Software Engineering", "Algorithms", "Networking", "Robotics"],
   "image": "/static/images/src.jpg",
+  "slug": "src",
   "desc": "Student Project Team where I have contributed to multiple software engineering projects including UDP server implementation, RRCC protocol design, and role matching algorithms for robotic soccer applications."
 }
