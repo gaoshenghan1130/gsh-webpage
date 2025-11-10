@@ -26,15 +26,16 @@ export const events = [
     detail: "Helped organize LiMing Cup as a rule-making committee member.",
   },
   {
-    year: "2025.8",
-    desc: "Research begins",
-    detail: "Worked on REIT integration and embedded FPGA control.",
+    year: "2025.3",
+    desc: "Admitted to University of Michigan",
+    detail:
+      "Worked on embedded systems for unicycle with Prof. Gabor and Post Doc. Mate Vizi.",
   },
   {
-    year: "2025.3",
-    desc: "New challenges",
+    year: "2025.8",
+    desc: "Semester begins",
     detail:
-      "Get admitted to UM, starting dual degree program in Mechanical Engineering.",
+      "Worked as a research assistant at University of Michigan; Joined IEEE Student Branch and ROBSUB.",
   },
   {
     year: "2026...",

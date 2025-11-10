@@ -8,6 +8,7 @@ import TableWrapper from "./TableWrapper";
 import MermaidChart from "./mermaidChart";
 import AutoPlayVideo from "@/components/AutoVideoPlayer";
 import InlineCode from "@/components/inlinecode";
+import MathBlock from "@/components/MathBlock";
 
 export const components: MDXComponents = {
   Image,
@@ -19,6 +20,7 @@ export const components: MDXComponents = {
   BlogNewsletterForm,
   MermaidChart,
   code: InlineCode,
-  inlineCode: InlineCode,
+  // inlineCode: InlineCode,
   InlineCode,
+  MathBlock,
 };

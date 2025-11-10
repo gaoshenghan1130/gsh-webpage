@@ -16,11 +16,18 @@ import { time } from "framer-motion";
 export default function ResumePage() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
+  const projectList = [pointSys, udpserver, rrcc, timeWield, rolematch];
+
   const handleSkillToggle = (skill: string) => {
     setSelectedSkills((prev) =>
       prev.includes(skill) ? prev.filter((s) => s !== skill) : [...prev, skill],
     );
   };
+
+  const filteredProjects = projectList.filter((project) => {
+    if (selectedSkills.length === 0) return true;
+    return selectedSkills.every((skill) => project.tags.includes(skill));
+  });
 
   return (
     <main className="h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -43,9 +50,7 @@ export default function ResumePage() {
         selectedSkills={selectedSkills}
         onChange={handleSkillToggle}
       />
-      <RightProjects
-        projects={[pointSys, udpserver, rrcc, teleop, timeWield, rolematch]}
-      />
+      <RightProjects projects={filteredProjects} />
     </main>
   );
 }

@@ -1,21 +1,18 @@
 ---
-name: rolematch
+name: Best Advancer Role Matching for SJTU SRC Team
 intro: A role matching system for the best advancer in SJTU SRC Robocup.
-desc: RoleMatch is a web-based role matching system developed for the SJTU SRC Robocup. It enhance the original version of role matching system by taking current player velocity and ball velocity into consideration. The system uses Ferrari's approach to solve quartic programming problems, ensuring optimal role assignments based on dynamic game conditions. Designed with efficiency and accuracy in mind, RoleMatch significantly improves the decision-making process for player roles during matches.
+desc: The second version of role matching system for the best advancer in SJTU SRC Robocup, implementing Ferrari's method to solve quartic equations for estimating chasing time.
 link: https://github.com/sjtu-src/Falcon2023/tree/dev
 tags: ["Qt", "C++", "Algrithm"]
 image: /static/images/rolematch.png
 ---
 
-# Role Matching for Best Advancer in SJTU SRC Robocup
-
-<InlineCode>RoleMatch</InlineCode> is a role matching system developed for the
-SJTU SRC Robocup team.
-
 ## Overview
 
 This module estimates the **time required for each robot to reach the ball**, under simplified physical assumptions.  
 It is mainly used to determine the **best attacker** in a multi-robot system.
+
+Original Chinese version of this document can be found at [SRC Wiki](https://sjtu-src.github.io/Wiki/chapter_software/sub_chapter_skill/bestPlayer/).
 
 ---
 
@@ -61,13 +58,15 @@ to catch a ball at `p0` with velocity `v0`, given the robot's max acceleration `
 
 After coordinate transformation (ball velocity → x-axis):
 
-$$
+<MathBlock
+  expression={String.raw`
 \begin{cases}
 p_y + v_y t + \frac{1}{2} a_y t^2 = 0 \\
 p_x + v_x t + \frac{1}{2} a_x t^2 = v_0 t \\
-|a| = a_{max}
+|a| = a_{\max}
 \end{cases}
-$$
+`}
+/>
 
 This forms a **quartic equation** in `t`, solved via **Ferrari's method**.  
 The smallest positive real root is the estimated chasing time.
