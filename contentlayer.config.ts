@@ -171,6 +171,7 @@ export const projMDX = defineDocumentType(() => ({
     intro: { type: "string", required: true },
     desc: { type: "string", required: true },
     link: { type: "string", required: true },
+    slug: { type: "string", required: true },
     image: { type: "string", required: true },
     tags: { type: "list", of: { type: "string" }, default: [] },
     childrenProjects: { type: "list", of: { type: "string" }, default: [] },

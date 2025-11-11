@@ -19,7 +19,7 @@ interface ProjectLayoutProps {
   tags?: string[];
   children?: ReactNode;
   childrenProjects?: (typeof allJSONs)[number][];
-  related?: ReactNode; // related projects
+  related?: (typeof allJSONs)[number][];
 }
 
 export default function ProjectLayout({
@@ -35,8 +35,6 @@ export default function ProjectLayout({
 }: ProjectLayoutProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const sideChildren = childrenProjects;
-
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -48,11 +46,11 @@ export default function ProjectLayout({
   return (
     <div className="min-h-screen bg-gray-100">
       {/* --- 全局两栏布局 --- */}
-      <div className="max-w-7xl mx-auto flex gap-6 px-4 py-12">
+      <div className="max-w-7xl mx-auto flex gap-6 px-4 py-12 h-screen">
         {/* --- 左侧正文 --- */}
         <div
           ref={containerRef}
-          className=" flex-1 overflow-y-auto bg-white shadow-lg rounded-lg p-6 max-h-screen"
+          className="flex-1 overflow-y-auto bg-white shadow-lg rounded-lg p-6 max-h-screen"
         >
           <ScrollHeader containerRef={containerRef}>
             <div className="flex items-center justify-between">
@@ -72,10 +70,10 @@ export default function ProjectLayout({
             </div>
           </ScrollHeader>
 
-          <div className="pt-16"></div>
+          <div className="pt-16 mt-4"></div>
 
           {image && (
-            <div className="mb-6 relative w-full sm:h-96">
+            <div className="relative w-full sm:h-96 -mt-9">
               <Image
                 src={image}
                 alt={title}
@@ -93,7 +91,7 @@ export default function ProjectLayout({
         </div>
 
         {/* --- 右侧栏 --- */}
-        <div className="w-72 shrink-0 overflow-y-auto h-full bg-white/60 rounded-lg shadow-lg backdrop-blur-xl p-4 hidden lg:block">
+        <div className="mt-[3vh] max-h-[77vh] w-72 shrink-0 overflow-y-auto h-full bg-white/60 rounded-lg shadow-lg backdrop-blur-xl p-4 hidden lg:block">
           <header className="mb-4 mt-[4vh]">
             {/* 标签 */}
             {tags.length > 0 && (
@@ -112,7 +110,7 @@ export default function ProjectLayout({
           {childrenProjects && childrenProjects.length > 0 && (
             <div className="mb-8">
               <h2 className="text-lg font-semibold text-gray-700 mb-4">
-                Children Projects
+                Child Projects
               </h2>
               {childrenProjects.map((child) => (
                 <div key={child.slug} className="mb-6">
@@ -131,12 +129,25 @@ export default function ProjectLayout({
             </div>
           )}
 
-          {related && (
-            <div>
+          {related && related.length > 0 && (
+            <div className="mb-8">
               <h2 className="text-lg font-semibold text-gray-700 mb-4">
                 Related Projects
               </h2>
-              {related}
+              {related.map((rel) => (
+                <div key={rel.slug} className="mb-6">
+                  <h3 className="text-md font-medium text-gray-600 mb-1">
+                    {rel.name}
+                  </h3>
+                  <p className="text-sm text-gray-500">{rel.intro}</p>
+                  <Link
+                    href={`/projects/${rel.slug}`}
+                    className="text-blue-500 hover:underline text-sm"
+                  >
+                    Read More
+                  </Link>
+                </div>
+              ))}
             </div>
           )}
         </div>

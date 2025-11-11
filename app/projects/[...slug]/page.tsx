@@ -23,8 +23,8 @@ export default async function Page(props: {
 
   const projectMDX = allProjects.find((p) => p.slug === decodedSlug);
 
+  // find related or child projects
   const childProjects = (): (typeof allJSONs)[number][] => {
-    console.log("Project MDX:", projectMDX?.childrenProjects);
     if (!projectMDX || !projectMDX.childrenProjects) return [];
 
     const result: (typeof allJSONs)[number][] = [];
@@ -34,16 +34,37 @@ export default async function Page(props: {
       if (child) {
         result.push(child);
       }
-      console.log("Child project:", child);
     }
 
     return result;
   };
 
-  if (!projectMDX) return notFound();
+  const relatedProjects = (): (typeof allJSONs)[number][] => {
+    if (!projectMDX) return [];
 
-  const content = coreContent(projectMDX);
+    const tags = projectMDX.tags;
 
+    const result: (typeof allJSONs)[number][] = [];
+
+    for (const tag of tags) {
+      for (const proj of allJSONs) {
+        // exclude self and duplicates
+        if (
+          proj.tags.includes(tag) &&
+          proj.slug !== projectMDX.slug &&
+          !result.includes(proj)
+        ) {
+          if (childProjects().includes(proj)) continue; // skip child projects
+          result.push(proj);
+        }
+      }
+    }
+
+    return result;
+  };
+  if (!projectMDX) {
+    notFound();
+  }
   return (
     <ProjectLayout
       title={projectMDX.name}
@@ -53,6 +74,7 @@ export default async function Page(props: {
       image={projectMDX.image}
       tags={projectMDX.tags}
       childrenProjects={childProjects()}
+      related={relatedProjects()}
     >
       <MDXLayoutRenderer
         code={projectMDX.body.code}
