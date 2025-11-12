@@ -1,9 +1,9 @@
 ---
 name: Shanghai Jiao Tong University School Robocup SSL(Small Size League)
 intro: Student Project Team for Robocup SSL
-desc: I have contributed various software modules to the Shanghai Jiao Tong University School Robocup SSL (Small Size League) team, including the RRCC communication protocol for Python-C++ interaction and the role matching system for optimal player assignment. These projects leverage technologies such as C++, Python, Qt, Protobuf, and advanced algorithms to enhance the team's performance in robotic soccer competitions, here is a brief overview of the team, and a collection of contributions.
-link: https://github.com/sjtu-src/Falcon2023/tree/dev
-tags: ["Web Development", "Software Engineering", "Algorithms", "Cybersecurity"]
+desc: Small Size League robots in competition, defending a goal.
+link: https://github.com/sjtu-src/Falcon2023
+tags: ["Web Development", "Software Engineering", "Algorithms", "Networking"]
 image: /static/images/src.jpg
 childrenProjects: ["RRCC", "udpServer", "rolematch"]
 slug: src
@@ -11,18 +11,127 @@ slug: src
 
 <TOCInline toc={props.toc} />
 
-## Overview
+# About the team
 
-Links to projects in this team can be found on the right sidebar
-
-## What is Robocup SSL?
+## What is Robocup SSL? What is SRC?
 
 Robocup SSL (Small Size League) is a competition in the Robocup initiative, which aims to promote robotics and AI research through competitive events. In this league, teams of small robots compete in soccer matches, showcasing their capabilities in perception, decision-making, and teamwork. The Shanghai Jiao Tong University School Robocup SSL team focuses on developing advanced algorithms and software solutions to enhance robot performance on the field.
 
-## What do we do in the team?
+The **[Shanghai Jiao Tong University RoboCup SSL (Small Size League)](https://sjtu-src.github.io/Wiki/)** team — also known as **SRC** — is part of the **Student Innovation Center**, alongside RoboMaster and VEX teams.
 
-### Software Development
+<Image
+  src="/static/images/src_field.JPG"
+  alt="Field on SJTU campus"
+  width={500}
+  height={600}
+  caption="Our team field on SJTU campus"
+/>
 
-### Hardware Design
+Founded in 2017 and guided by _Coach Chuntao Leng_, SRC focuses on the **RoboCup Small Size League**, where teams of autonomous robots play high-speed soccer matches. The competition challenges teams in areas such as **real-time control**, **computer vision**, **multi-agent coordination**, and **embedded systems**.
 
-### Electronics
+### Recent Achievements
+
+- 🏆 2017 RoboCup World Champion
+- 🥇 2018 China National Champion
+- 🥇 2019 China National Champion
+- 🏆 2020 China Technical Challenge Champion
+- 🥈 2021 China Runner-up
+- 🥈 2022 China Technical Challenge Runner-up
+- 🥉 2023 China 3rd Place
+- 🥈 2024 China Runner-up & Technical Challenge Runner-up
+- 🥈 2025 China 2nd Place & Technical Challenge 2nd Place
+
+<Image
+  src="/static/images/src_glory.png"
+  alt="Awards and Achievements"
+  width={500}
+  height={600}
+  caption="Some of our awards and achievements"
+/>
+
+---
+
+## Team Structure
+
+The SRC team consists of four collaborating divisions — **Software**, **Electronics**, **Hardware**, and **Operations** — jointly responsible for robot design, development, and competition performance.
+
+## Software Group
+
+<Image
+  src="/static/gif/src_software.gif"
+  alt="Gif showing simulation software"
+  width={500}
+  height={600}
+  caption="Simulation software showing basic attack strategy with heat diagram calculated with CUDA"
+/>
+
+The _Software Group_ acts as the **central nervous system** of the team.  
+It focuses on AI decision-making, path planning, motion control, and real-time communication. Members implement algorithms that enable robots to perceive, strategize, and cooperate on the field.
+
+**Core Areas:**
+
+- C++, Python, and Lua programming
+- Path planning and motion control algorithms
+- Multi-robot cooperation and decision-making AI
+- Development in large-scale, multi-module codebases
+
+## Electronics & Hardware
+
+<Image
+  src="/static/images/src_hardware.png"
+  alt="Electronics and Hardware Group"
+  width={500}
+  height={600}
+  caption="3D model inside the robots designed with SolidWorks"
+/>
+
+The _Electronics_ and _Hardware_ groups design the **mechanical and electrical foundation** of the robots — from PCBs and motor control to 3D modeling and structural optimization.
+
+**Core Areas:**
+
+- Altium Designer & PCB layout
+- BLDC motor control, PID tuning
+- SolidWorks modeling and mechanical design
+- Assembly, debugging, and testing
+
+## Operations
+
+The _Operations Group_ handles all logistical and promotional aspects — from media design and event planning to competition travel and finances.
+
+---
+
+# My Contributions
+
+As a **software developer** and **software team leader** in the SRC team, I contributed to several key modules that improved communication efficiency, tactical decision-making, and modularity in the system architecture.
+
+Details for these projects can also be found on the side bar.
+
+**[RRCC — Real-time RoboCup Communication Protocol](/projects/rrcc)**
+
+**[Optimized Role Matching System](/projects/rolematch)**
+
+**[Python C++ UDP Server](/projects/udpServer)**
+
+Some other project contributions (CUDA optimization, Lua reconstruction to Python, PyBind and refactored decorated FSM, etc.) have not been documented in this webpage yet, you may find details of them on my [GitHub](https://github.com/gaoshenghan1130).
+
+## Competition Experience with SRC
+
+The most important and impactful competition of the team with me was **RoboCup 2025**, where I acted as the software team leader.
+
+The competition is held in Beijing, China, and it gathered top teams from around the Country including, SJTU, Zhejiang University, Ningbo Engineering University, Wuhan University, and more.
+
+<Image
+  src="/static/images/src_loc2025.JPG"
+  alt="RoboCup 2025 Competition"
+  width={500}
+  height={600}
+  caption="Location of the competition"
+/>
+
+<Image
+  src="/static/images/src_in2025.JPG"
+  alt="RoboCup 2025 Competition"
+  width={500}
+  height={600}
+  caption="Inside the competition venue"
+/>

@@ -20,7 +20,7 @@ export const components: MDXComponents = {
   BlogNewsletterForm,
   MermaidChart,
   code: InlineCode,
-  // inlineCode: InlineCode,
+  inlineCode: InlineCode,
   InlineCode,
   MathBlock,
 };
