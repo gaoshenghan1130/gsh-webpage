@@ -41,6 +41,7 @@
     "pliny": "0.4.1",
     "postcss": "^8.4.24",
     "prism-themes": "^1.9.0",
+    "prismjs": "^1.30.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-mermaid2": "^0.1.4",

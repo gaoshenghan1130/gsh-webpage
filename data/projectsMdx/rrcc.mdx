@@ -43,14 +43,14 @@ It emphasizes a **clear control flow** and **explicit response mechanism**, wher
 
 ## Message Definitions (Protobuf)
 
-The definitions are located in `share/proto/py_msg.proto` and include the following message types:
+The definitions are located in **share/proto/py_msg.proto** and include the following message types:
 
-| Message Type      | Description                                              |
-| ----------------- | -------------------------------------------------------- |
-| `Request`         | Initiates a request with parameters                      |
-| `Confirm`         | Acknowledges receipt of the request                      |
-| `Response`        | Returns computed results                                 |
-| `ConfirmContinue` | Indicates whether to continue or terminate communication |
+| Message Type        | Description                                              |
+| ------------------- | -------------------------------------------------------- |
+| **Request**         | Initiates a request with parameters                      |
+| **Confirm**         | Acknowledges receipt of the request                      |
+| **Response**        | Returns computed results                                 |
+| **ConfirmContinue** | Indicates whether to continue or terminate communication |
 
 ---
 
@@ -83,24 +83,24 @@ sequenceDiagram
 
 ## State Description
 
-| Stage                           | Initiator | Receiver | Description                                     |
-| ------------------------------- | --------- | -------- | ----------------------------------------------- |
-| Initialize request              | C++       | Python   | Send `Request`                                  |
-| Confirm receipt                 | Python    | C++      | Reply with `Confirm`                            |
-| Execute and return result       | Python    | C++      | Reply with `Response`                           |
-| Decide to continue or terminate | C++       | Python   | Send `ConfirmContinue` or stop sending messages |
+| Stage                           | Initiator | Receiver | Description                                       |
+| ------------------------------- | --------- | -------- | ------------------------------------------------- |
+| Initialize request              | C++       | Python   | Send **Request**                                  |
+| Confirm receipt                 | Python    | C++      | Reply with **Confirm**                            |
+| Execute and return result       | Python    | C++      | Reply with **Response**                           |
+| Decide to continue or terminate | C++       | Python   | Send **ConfirmContinue** or stop sending messages |
 
 ---
 
 ## Exception Handling
 
-| Scenario                            | Python Side Behavior                                             | C++ Side Behavior                       |
-| ----------------------------------- | ---------------------------------------------------------------- | --------------------------------------- |
-| C++ sends no request after startup  | Python remains idle, does not exit                               | —                                       |
-| C++ crash or debugging interruption | Python remains idle, does not exit                               | —                                       |
-| Python worker thread failure        | Restart the thread upon next retransmission                      | C++ triggers timeout and retransmission |
-| Python main thread crash            | —                                                                | C++ triggers timeout and retransmission |
-| Messages sent out of order          | Ignore `ConfirmContinueMsg` without a corresponding `RequestMsg` | Undefined behavior; may lead to crash   |
+| Scenario                            | Python Side Behavior                                                 | C++ Side Behavior                       |
+| ----------------------------------- | -------------------------------------------------------------------- | --------------------------------------- |
+| C++ sends no request after startup  | Python remains idle, does not exit                                   | —                                       |
+| C++ crash or debugging interruption | Python remains idle, does not exit                                   | —                                       |
+| Python worker thread failure        | Restart the thread upon next retransmission                          | C++ triggers timeout and retransmission |
+| Python main thread crash            | —                                                                    | C++ triggers timeout and retransmission |
+| Messages sent out of order          | Ignore **ConfirmContinueMsg** without a corresponding **RequestMsg** | Undefined behavior; may lead to crash   |
 
 ---
 

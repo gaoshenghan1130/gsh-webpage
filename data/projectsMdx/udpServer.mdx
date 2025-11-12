@@ -19,27 +19,27 @@ slug: udpServer
 
 # PyModule Features, Principles, and Usage
 
-`PyModule` is a `C++` module designed to call Python code from C++ and retrieve its output.
+**PyModule** is a **C++** module designed to call Python code from C++ and retrieve its output.
 
 ---
 
 ## Features and Use Cases
 
-- Use Python libraries like `numpy` or `scipy` for advanced mathematical computations in C++.
-- Call Python deep learning models, e.g., `torch`.
+- Use Python libraries like **numpy** or **scipy** for advanced mathematical computations in C++.
+- Call Python deep learning models, e.g., **torch**.
 - Note: Python scripts usually run slower than C++. Although PyModule supports threading, in a real-time skill frame, the result may not update immediately.
 
 ---
 
 ## Overview of Call Methods
 
-`PyModule` provides three ways to call Python:
+**PyModule** provides three ways to call Python:
 
-| Method                      | Blocking | Description                                          |
-| --------------------------- | -------- | ---------------------------------------------------- |
-| `runPythonTaskDirect`       | Yes      | Directly run a Python script and wait for result     |
-| `runPythonTaskDirectThread` | No       | Run in a separate thread, may return previous result |
-| `runPythonTaskServer`       | No       | Call via server, faster, recommended                 |
+| Method                        | Blocking | Description                                          |
+| ----------------------------- | -------- | ---------------------------------------------------- |
+| **runPythonTaskDirect**       | Yes      | Directly run a Python script and wait for result     |
+| **runPythonTaskDirectThread** | No       | Run in a separate thread, may return previous result |
+| **runPythonTaskServer**       | No       | Call via server, faster, recommended                 |
 
 ---
 
