@@ -23,7 +23,7 @@ interface RightProjectsProps {
 export default function RightProjects({ projects }: RightProjectsProps) {
   const router = useRouter();
   return (
-    <div className="fixed top-[15%] right-9 h-[75vh] max-h-[75vh] w-[70%] overflow-y-auto pr-6">
+    <div className="fixed top-[15%] right-9 h-[85vh] max-h-[85vh] w-[70%] overflow-y-auto pr-6">
       <div className="relative top-[5vh] left-3 flex w-full flex-wrap overflow-visible">
         {projects.map((project, index) => {
           const col = index % 4;

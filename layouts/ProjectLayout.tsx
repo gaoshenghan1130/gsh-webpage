@@ -109,13 +109,13 @@ export default function ProjectLayout({
           </header>
           {childrenProjects && childrenProjects.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                 Child Projects
               </h2>
               {childrenProjects.map((child) => (
                 <div key={child.slug} className="mb-6">
                   <h3 className="text-md font-medium text-gray-600 mb-1">
-                    {child.name}
+                    {child.fullname}
                   </h3>
                   <p className="text-sm text-gray-500">{child.intro}</p>
                   <Link
@@ -131,13 +131,13 @@ export default function ProjectLayout({
 
           {related && related.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                 Related Projects
               </h2>
               {related.map((rel) => (
                 <div key={rel.slug} className="mb-6">
                   <h3 className="text-md font-medium text-gray-600 mb-1">
-                    {rel.name}
+                    {rel.fullname}
                   </h3>
                   <p className="text-sm text-gray-500">{rel.intro}</p>
                   <Link
