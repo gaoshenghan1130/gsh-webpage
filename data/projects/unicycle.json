@@ -1,0 +1,11 @@
+{
+  "name": "unicycle",
+  "fullname": "Autonomous Unicycle Balance Control with STMWB55RG",
+  "file": "projects/unicycle",
+  "link": "https://github.com/gaoshenghan1130/Unicycle",
+  "intro": "An autonomous unicycle capable of balancing itself using advanced control algorithms and sensor fusion techniques.",
+  "tags": ["Robotics", "Control Systems", "Algorithms"],
+  "image": "/static/images/unicycle1.png",
+  "slug": "unicycle",
+  "desc": "Initiated by Prof. Gabor Orosz, this project focuses on developing an autonomous unicycle capable of balancing itself using advanced control algorithms and sensor fusion techniques."
+}

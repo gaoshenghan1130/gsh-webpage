@@ -11,13 +11,22 @@ import rrcc from "@/data/projects/RRCC.json";
 import timeWield from "@/data/projects/timeWield.json";
 import rolematch from "@/data/projects/rolematch.json";
 import src from "@/data/projects/src.json";
+import unicycle from "@/data/projects/unicycle.json";
 
 export default function ResumePage() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>(() =>
     skillCategories.flatMap((c) => c.skills),
   );
 
-  const projectList = [src, pointSys, udpserver, rrcc, timeWield, rolematch];
+  const projectList = [
+    src,
+    unicycle,
+    pointSys,
+    udpserver,
+    rrcc,
+    timeWield,
+    rolematch,
+  ];
 
   const handleSkillToggle = (skill: string) => {
     setSelectedSkills((prev) =>

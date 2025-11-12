@@ -78,7 +78,7 @@ export default function ProjectLayout({
                 src={image}
                 alt={title}
                 fill
-                className="object-contain rounded-lg shadow-lg"
+                className="object-contain rounded-lg"
               />
             </div>
           )}

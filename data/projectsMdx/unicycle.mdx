@@ -1,0 +1,56 @@
+---
+name: unicycle
+intro: An autonomous unicycle capable of balancing itself using advanced control algorithms and sensor fusion techniques.
+desc: Initiated by Prof. Gabor Orosz, this project focuses on developing an autonomous unicycle capable of balancing itself using advanced control algorithms and sensor fusion techniques.
+link: https://github.com/gaoshenghan1130/Unicycle
+tags: ["Robotics", "Control Systems", "Algorithms"]
+image: /static/images/unicycle1.png
+slug: unicycle
+---
+
+<TOCInline toc={props.toc} />
+
+## Overview
+
+This project is still on **Ongoing**. For updates, please visit the GitHub repository:  
+👉 [Unicycle Project on GitHub](https://github.com/gaoshenghan1130/Unicycle)
+
+This project focuses on developing an autonomous unicycle capable of balancing itself using advanced control algorithms and sensor fusion techniques. To achieve this, this project contains multiple modules for different aspects of the unicycle's functionality, including:
+
+- **Core**: STM32WB55RG, responsible for overall control communication and processing.
+- **Sensor**: IMU for orientation and acceleration sensing.
+- **Lateral Controller**: Responsible for maintaining balance and stability during lateral movements.
+- **Longitudinal Controller**: Responsible for maintaining balance and stability during longitudinal movements.
+- **Bluetooth Module**: Handles communication with PC or mobile devices for general direction and control.
+- **Communication Module**: Manages data exchange between different components and external devices.
+
+Some of these modules could be found on the child projects on the right bar, including their specific implementations and configurations.
+
+## Hardware Connection
+
+<MermaidChart chart={`
+graph TD
+    STM["STM32WB55RG\\nCore Controller"]
+    IMU["IMU\\n(I2C)"]
+    CAN["MCP2515 + TJA1050\\nCAN Controller & Transceiver"]
+    BT["Bluetooth Module\\n(STM CPU2)"]
+    M1["Faulhaber MC3001\\n(Motor Driver - Longitudinal)"]
+    M2["Faulhaber MC3001\\n(Motor Driver - Lateral)"]
+    PWR5["5V Power Supply"]
+    PWR24["24V Power Supply"]
+    MotorL["Motor - Longitudinal"]
+    MotorT["Motor - Lateral"]
+
+    STM -->|I2C| IMU
+    STM -->|SPI| CAN
+    STM -->|UART / PWM| M1
+    STM -->|UART / PWM| M2
+    STM -->|Internal BLE| BT
+
+    PWR5 --> STM
+    PWR24 --> M1
+    PWR24 --> M2
+    M1 --> MotorL
+    M2 --> MotorT
+
+`} />
