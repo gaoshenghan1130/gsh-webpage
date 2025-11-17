@@ -8,10 +8,12 @@ import rolematch from "@/data/projects/rolematch.json";
 import src from "@/data/projects/src.json";
 import unicycle from "@/data/projects/unicycle.json";
 import liming from "@/data/projects/liming.json";
+import uc_imu from "@/data/projects/uc_imu.json";
 
 export const projectList = [
   src,
   unicycle,
+  uc_imu,
   pointSys,
   udpserver,
   rrcc,

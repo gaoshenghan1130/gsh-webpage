@@ -1,0 +1,11 @@
+{
+  "name": "uc_imu",
+  "fullname": "IMU Implementation for Unicycle",
+  "file": "projects/uc_imu",
+  "link": "https://github.com/gaoshenghan1130/Unicycle",
+  "intro": "The IMU implementation for Unicycle, focusing on sensor fusion and control algorithms.",
+  "tags": ["Robotics", "Control Systems", "Algorithms"],
+  "image": "/static/images/uc_imu.png",
+  "slug": "uc_imu",
+  "desc": "The IMU implementation for Unicycle, focusing on sensor fusion and control algorithms."
+}
