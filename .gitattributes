@@ -184,6 +184,3 @@ Procfile          text
 *.*rc             text
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
-public/static/images filter=lfs diff=lfs merge=lfs -text
-public/static/favicons filter=lfs diff=lfs merge=lfs -text
-public/static/gif filter=lfs diff=lfs merge=lfs -text
