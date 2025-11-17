@@ -1,0 +1,141 @@
+---
+name: Liming Cup Robot
+intro: A robot competition for SJTU students, established in 2020, winning the Best Design Award
+desc: Picture showing our robot competing in the Liming Cup competition, attempting to pick up a block and place it into the wall
+tags: ["Robotics", "Mechatronics", "CAD"]
+link: /unauthorized
+image: /static/images/liming.png
+slug: liming
+---
+
+# Overview
+
+This project involves designing and building a robot for the Liming Cup competition, a robotics contest for students at Shanghai Jiao Tong University. The robot was designed to complete multiple tasks within a limited time, demonstrating both mechanical design and control systems engineering.
+
+I served as the team leader of a four-member group, responsible for designing and building the robot. Our team won 3rd place overall and received the Best Design Award.
+
+# What We Did
+
+We built a robot capable of performing several tasks within tight time constraints. The project involved both hardware design and embedded programming.
+
+## Hardware Design
+
+We abandoned general-purpose solutions in favor of a custom-built system tailored specifically to the competition's requirements.
+
+### Robot Arm
+
+The robot arm incorporates several lever mechanisms to achieve precise motion and object manipulation — a structure very different from standard multi-joint or lift-style designs.
+
+<Image
+  src="/static/gif/liming_robot_arm.gif"
+  alt="Robot Arm"
+  width={500}
+  height={600}
+  caption="Testing the robot arm as it lifts a cube"
+/>
+
+Two main levers control the arm's motion. The upper lever performs precise lifting of objects, while the lower lever coordinates forward and backward movement aligned with the front two wheels.
+
+A motor between the upper lever and the crawler mechanism allows the entire gripper assembly to rotate to different orientations.
+
+This design proved highly effective during the competition:
+
+<Image
+  src="/static/gif/liming_arm_c.gif"
+  alt="Robot Arm"
+  width={500}
+  height={600}
+  caption="Successfully inserting a cube into the wall during the competition"
+/>
+
+### Wheels
+
+The robot uses a three-wheel configuration: two driven wheels and one caster wheel. This layout allows smooth and precise movement, especially during turns, while maintaining a wide chassis for stability and for pushing objects when needed.
+
+<Image
+  src="/static/gif/liming_wheel.gif"
+  alt="Robot Wheels"
+  width={500}
+  height={600}
+  caption="Competitors often narrow the robot for agility, but our wide robot remained maneuverable thanks to the three-wheel design"
+/>
+
+### Structure
+
+The robot’s chassis was designed to be robust and stable. The frame was laser-cut from **acrylic sheets (PMMA)**, providing a lightweight yet strong structure.
+
+## Software
+
+The software component involved embedded programming and real-time control of the robot's movement and task behaviors. One of the main challenges was coordinating all actions to meet the strict time limits, demanding close integration of hardware and software.
+
+```c
+#include <SPI.h>
+#include <mcp2515.h>
+
+struct can_frame canMsg;
+struct can_frame resetmsg;
+struct can_frame startmsg;
+MCP2515 mcp2515(53);  // 10 for UNO, 53 for MEGA
+u8 c=0;
+
+
+void setup() {
+  Serial.begin(9600);
+
+  mcp2515.reset();
+  mcp2515.setBitrate(CAN_1000KBPS, MCP_8MHZ);
+  mcp2515.setNormalMode();
+  //Serial.print("Wait a while for mc3001\n");
+  //delay(5000);
+  //mcp2515.setLoopbackMode();
+
+  Serial.println("------- CAN Read ----------");
+  Serial.println("ID  DLC   DATA");
+
+  startmsg.can_id = 0x000;
+  startmsg.can_dlc = 2;
+  startmsg.data[0] = 0x01;
+  startmsg.data[1] = 0x00;
+
+  mcp2515.sendMessage(&startmsg);
+}
+
+void loop() {
+  mcp2515.sendMessage(&startmsg);
+
+
+
+  // resetmsg.can_id = 0x000;
+  // resetmsg.can_dlc = 2;
+  // resetmsg.data[0] = 0x81;
+  // resetmsg.data[1] = 0x00;
+
+
+  // char startmsg[2] = { 0x01, 0x00 };
+  // char resetnodemsg[2] = { 0x81, 0x00 };
+
+  //byte err = mcp2515.sendMessage(&resetmsg);
+  //Serial.println(err);
+
+
+
+  if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK) {
+    Serial.print(c++); // print ID
+    Serial.print(" "); // print ID
+    Serial.print(canMsg.can_id, HEX); // print ID
+    Serial.print(" ");
+    Serial.print(canMsg.can_dlc, HEX); // print DLC
+    Serial.print(" ");
+
+    for (int i = 0; i<canMsg.can_dlc; i++)  {  // print the data
+      Serial.print(canMsg.data[i],HEX);
+      Serial.print(" ");
+    }
+
+    Serial.println();
+  }
+
+  delay(500);
+}
+
+```

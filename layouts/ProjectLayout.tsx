@@ -83,7 +83,11 @@ export default function ProjectLayout({
             </div>
           )}
 
-          {desc && <p className="mb-6 text-sm text-gray-400">{desc}</p>}
+          {desc && (
+            <p className="mb-6 text-sm text-gray-400 text-center mx-auto max-w-prose">
+              {desc}
+            </p>
+          )}
 
           <div className="prose prose-sm max-w-none mb-12">{children}</div>
 

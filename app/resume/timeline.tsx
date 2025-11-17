@@ -22,7 +22,7 @@ export default function Timeline() {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredIndex(null);
-    }, 1500); // 延迟取消 hover
+    }, 500); // 延迟取消 hover
   };
 
   return (

@@ -1,0 +1,11 @@
+{
+  "name": "liming",
+  "fullname": "Liming Cup Robot Competition",
+  "file": "projects/liming",
+  "link": "https://github.com/gaoshenghan1130",
+  "intro": "A robot competition for SJTU students, established in 2020, winning best design award",
+  "tags": ["Robotics", "Mechatronics", "CAD"],
+  "image": "/static/images/liming.png",
+  "slug": "liming",
+  "desc": "Liming Cup is a robot competition for SJTU students, established in 2020, with around 50 participants groups. Here I acted as both the member of rule committee and group leader. The competition involved designing and building robots to compete in various challenges, requiring skills in mechanical design, electronics, and programming. Our team won the best design award."
+}
