@@ -7,3 +7,25 @@ tags: ["Robotics", "Control Systems", "Algorithms"]
 image: /static/images/uc_imu.png
 slug: uc_imu
 ---
+
+<TOCInline toc={props.toc} />
+
+# Unicycle IMU Implementation
+
+This project focuses on the implementation of the Inertial Measurement Unit (IMU) for the Unicycle robot. The IMU is crucial for providing orientation and motion data, which is essential for the robot's balance and navigation.
+
+## Board Overview
+
+We used BNO055 as the primary IMU sensor due to its integrated sensor fusion capabilities. The BNO055 combines accelerometer, gyroscope, and magnetometer data to provide accurate orientation information.
+
+The is a automatic sensor fusion algorithm built into the BNO055, but we did not use it because it requires tedious calibration and is not flexible enough for our application.
+
+The algorithm for current position is implemented by Post Doc Mate Vizi, it works well in practice.
+
+<Image
+  src="/static/gif/uc_imu.gif"
+  alt="Unicycle IMU Board"
+  width={500}
+  height={400}
+  caption="Motion of motor with IMU data"
+/>
