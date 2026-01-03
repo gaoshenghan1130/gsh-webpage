@@ -1,5 +1,11 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cmake.sourceDirectory": "/Users/gaoshenghan/Desktop/gsh-webpage/node_modules/nan"
+  "cmake.sourceDirectory": "/Users/gaoshenghan/Desktop/gsh-webpage/node_modules/nan",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
