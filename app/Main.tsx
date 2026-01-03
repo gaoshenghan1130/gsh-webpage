@@ -71,7 +71,7 @@ export default function Main() {
           <motion.span
             animate={{ color: videoBright ? "#010b259c" : "#fcd34dc1" }}
             transition={{ duration: 1 }}
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="playfair-font"
           >
             Gao Shenghan
           </motion.span>
