@@ -47,7 +47,7 @@ export default function Main() {
         className="absolute inset-0 h-full w-full object-cover z-10"
         animate={{
           filter: hovering ? "blur(3px)" : "blur(0px)",
-          opacity: 0.7,
+          opacity: 0.93,
         }}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >

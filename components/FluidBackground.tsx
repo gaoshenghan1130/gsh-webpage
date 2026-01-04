@@ -16,6 +16,7 @@ export default function FluidBackground() {
     let height = window.innerHeight;
 
     function resize() {
+      if (!canvas || !gl) return;
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = width;
@@ -72,6 +73,7 @@ export default function FluidBackground() {
     `;
 
     function compile(type: number, src: string) {
+      if (!gl) return null;
       const s = gl.createShader(type)!;
       gl.shaderSource(s, src);
       gl.compileShader(s);
@@ -106,6 +108,7 @@ export default function FluidBackground() {
 
     // ---------------- FBO ----------------
     function createFBO() {
+      if (!gl) throw new Error("WebGL not initialized");
       const tex = gl.createTexture()!;
       gl.bindTexture(gl.TEXTURE_2D, tex);
       gl.texImage2D(
@@ -159,6 +162,7 @@ export default function FluidBackground() {
     });
 
     function loop() {
+      if (!gl) return;
       const t = performance.now() * 0.001;
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, pong.fbo);
